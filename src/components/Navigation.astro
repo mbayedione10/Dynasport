@@ -1,0 +1,50 @@
+---
+const links = [
+  { href: '/entreprise', text: 'Entreprise' },
+  { href: '/presentation', text: 'Présentation' },
+  { href: '/services-produits', text: 'Services & Produits' },
+  { href: '/references', text: 'Références' },
+  { href: '/contact', text: 'Contact' }
+];
+---
+
+<header class="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm" transition:persist>
+  <nav class="container h-20 flex items-center justify-between" transition:name="nav">
+    <a href="/" class="flex items-center" transition:name="logo">
+      <img src="/images/dynasports.png" alt="DYNASPORTS Logo" class="h-10 mr-2" />
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      {links.map(link => (
+        <li>
+          <a 
+            href={link.href}
+            class="font-medium text-gray-600 hover:text-primary transition-colors"
+          >
+            {link.text}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="/contact" class="btn-primary">
+          Nous contacter
+        </a>
+      </li>
+    </ul>
+
+    <button 
+      class="md:hidden p-2"
+      aria-label="Menu"
+      id="menu-button"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<script>
+  const button = document.getElementById('menu-button');
+  // Mobile menu implementation will go here
+</script>

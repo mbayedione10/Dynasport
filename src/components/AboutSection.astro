@@ -1,0 +1,97 @@
+---
+const stats = [
+  {
+    number: "25+",
+    label: "Années d'expérience",
+    icon: "⭐"
+  },
+  {
+    number: "1000+",
+    label: "Clubs équipés",
+    icon: "🏆"
+  },
+  {
+    number: "50k+",
+    label: "Produits livrés",
+    icon: "📦"
+  },
+  {
+    number: "98%",
+    label: "Clients satisfaits",
+    icon: "🤝"
+  }
+];
+---
+
+<section class="py-24 bg-white">
+  <div class="container">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-4xl font-display font-bold mb-6">
+          Votre partenaire de confiance depuis 1998
+        </h2>
+        <p class="text-lg text-gray-600 mb-8">
+          DYNASPORTS s'est imposé comme le leader de l'équipement sportif professionnel en France. Notre expertise, construite sur plus de deux décennies d'expérience, nous permet d'accompagner clubs et institutions dans leurs projets d'équipement avec excellence et passion.
+        </p>
+        <div class="flex gap-4">
+          <a href="/entreprise" class="btn-primary">
+            Notre histoire
+          </a>
+          <a href="/references" class="btn-secondary">
+            Nos références
+          </a>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-8" id="stats-grid">
+        {stats.map(stat => (
+          <div class="bg-gray-50 p-6 rounded-lg text-center transform hover:-translate-y-1 transition-transform">
+            <div class="text-4xl mb-2">{stat.icon}</div>
+            <div class="text-3xl font-bold text-primary mb-2">{stat.number}</div>
+            <div class="text-gray-600">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Animation des chiffres avec Intersection Observer
+const animateValue = (obj, start, end, duration) => {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const current = Math.floor(progress * (end - start) + start);
+    obj.innerHTML = current + (obj.dataset.suffix || '');
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const statsElements = entry.target.querySelectorAll('.text-3xl');
+      statsElements.forEach(el => {
+        const value = el.innerText;
+        const isPlus = value.includes('+');
+        const number = parseInt(value);
+        el.dataset.suffix = isPlus ? '+' : '';
+        animateValue(el, 0, number, 2000);
+      });
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1
+});
+
+const statsGrid = document.getElementById('stats-grid');
+if (statsGrid) {
+  observer.observe(statsGrid);
+}
+</script>

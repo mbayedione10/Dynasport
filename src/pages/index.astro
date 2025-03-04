@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import HeroSection from '../components/HeroSection.astro';
+import FeaturedProducts from '../components/FeaturedProducts.astro';
+import AboutSection from '../components/AboutSection.astro';
+import BrandsCarousel from '../components/BrandsCarousel.astro';
+import ServicesProducts from '../components/ServicesProducts.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ContactForm from '../components/ContactForm.astro';
+import MapSection from '../components/MapSection.astro';
+import Footer from '../components/Footer.astro';
+import StoreShowcase from '../components/StoreShowcase.astro';
+---
+
+<Layout 
+  title="Accueil" 
+  description="DYNASPORTS - Votre partenaire de confiance pour l'équipement sportif professionnel. Découvrez notre gamme complète de produits et services."
+>
+  <Navigation />
+  <main>
+    <HeroSection />
+    <FeaturedProducts />
+    <StoreShowcase />
+    <AboutSection />
+    <ServicesProducts />
+    
+    <BrandsCarousel />
+    <Testimonials />
+
+    <ContactForm />
+    <MapSection />
+  </main>
+  <Footer />
+</Layout>

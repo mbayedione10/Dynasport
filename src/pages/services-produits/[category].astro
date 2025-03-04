@@ -1,0 +1,284 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+
+export async function getStaticPaths() {
+  const { data: categories, error } = await supabase
+    .from('categories')
+    .select('id, name');
+  
+  if (error) {
+    console.error('Erreur lors de la récupération des catégories:', error);
+    return [];
+  }
+  
+  return categories.map(category => ({
+    params: { category: category.id },
+    props: { categoryId: category.id, categoryName: category.name }
+  }));
+}
+
+const { category } = Astro.params;
+const { categoryId, categoryName } = Astro.props;
+
+// Récupération des produits de la catégorie
+const { data: products, error: productsError } = await supabase
+  .from('category_products')
+  .select('*')
+  .eq('category_id', categoryId)
+  .eq('active', true);
+
+if (productsError) {
+  console.error('Erreur lors de la récupération des produits:', productsError);
+}
+
+// Récupération des détails de la catégorie
+const { data: categoryDetails, error: categoryError } = await supabase
+  .from('categories')
+  .select('*')
+  .eq('id', categoryId)
+  .single();
+
+if (categoryError) {
+  console.error('Erreur lors de la récupération des détails de la catégorie:', categoryError);
+}
+
+// Récupération des tags de la catégorie
+const { data: categoryTags, error: tagsError } = await supabase
+  .from('category_tags')
+  .select('name')
+  .eq('category_id', categoryId);
+
+if (tagsError) {
+  console.error('Erreur lors de la récupération des tags de la catégorie:', tagsError);
+}
+---
+
+<Layout 
+  title={categoryName}
+  description={`Découvrez notre gamme de ${categoryName.toLowerCase()} pour le sport professionnel`}
+>
+  <Navigation />
+  
+  <main class="pt-20">
+    <section class="bg-gray-50 py-12">
+      <div class="container">
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="/" class="text-gray-700 hover:text-primary">Accueil</a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                </svg>
+                <a href="/services-produits" class="text-gray-700 hover:text-primary">Services & Produits</a>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div class="flex items-center">
+                <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                </svg>
+                <span class="text-gray-500">{categoryName}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="mb-12">
+          <h1 class="text-4xl font-display font-bold mb-6">{categoryName}</h1>
+          {categoryDetails && (
+            <div class="max-w-3xl">
+              <p class="text-lg text-gray-600 mb-4">
+                {categoryDetails.description}
+              </p>
+              
+              {categoryTags && categoryTags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-4">
+                  {categoryTags.map(tag => (
+                    <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                      {tag.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        
+        {products && products.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map(product => (
+              <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                <div class="relative h-64">
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-bold mb-2">{product.name}</h3>
+                  <p class="text-gray-600 mb-4">{product.description}</p>
+                  <div class="flex justify-end">
+                    <a 
+                      href={`/contact?product=${encodeURIComponent(product.name)}`} 
+                      class="btn-primary"
+                    >
+                      Demander un devis
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="bg-white p-8 rounded-lg shadow-sm text-center">
+            <p class="text-lg text-gray-600 mb-4">Aucun produit n'est disponible dans cette catégorie pour le moment.</p>
+            <p class="text-gray-600">N'hésitez pas à nous contacter pour plus d'informations sur nos produits {categoryName.toLowerCase()}.</p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Produits associés -->
+    {products && products.length > 0 && (
+      <section class="py-16 bg-white">
+        <div class="container">
+          <h2 class="text-3xl font-display font-bold mb-8">Vous pourriez aussi être intéressé par</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-primary/10 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h3 class="font-bold text-lg">Solutions pour clubs</h3>
+              </div>
+              <p class="text-gray-600 mb-4">Découvrez nos offres spéciales pour les clubs et institutions sportives.</p>
+              <a href="/presentation#clubs" class="text-primary font-semibold inline-flex items-center">
+                En savoir plus
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-secondary/10 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <h3 class="font-bold text-lg">Personnalisation</h3>
+              </div>
+              <p class="text-gray-600 mb-4">Service de personnalisation sur mesure pour vos équipements sportifs.</p>
+              <a href="/services-produits/personnalisation" class="text-secondary font-semibold inline-flex items-center">
+                Découvrir
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-primary/10 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 class="font-bold text-lg">Rendez-vous conseil</h3>
+              </div>
+              <p class="text-gray-600 mb-4">Prenez rendez-vous avec nos experts pour des conseils personnalisés.</p>
+              <a href="/contact?subject=conseil" class="text-primary font-semibold inline-flex items-center">
+                Prendre rendez-vous
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-gray-50">
+      <div class="container">
+        <div class="bg-primary/5 rounded-xl p-8 md:p-12">
+          <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl font-display font-bold mb-6">
+              Besoin d'un produit spécifique ?
+            </h2>
+            <p class="text-lg text-gray-600 mb-8">
+              Notre équipe est à votre disposition pour vous proposer des solutions sur mesure adaptées à vos besoins spécifiques.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href="/contact" class="btn-primary">
+                Contactez-nous
+              </a>
+              <a href="/references" class="btn-secondary">
+                Voir nos références
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+// Animation à l'apparition des produits
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '50px'
+  });
+
+  document.querySelectorAll('.grid > div').forEach(card => {
+    observer.observe(card);
+  });
+});
+</script>
+
+<style>
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

@@ -1,0 +1,111 @@
+---
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Récupération des catégories et leurs tags
+const { data: categories, error } = await supabase
+  .from('categories')
+  .select(`
+    *,
+    category_tags (
+      name
+    )
+  `)
+  .order('updated_at', { ascending: false });
+
+if (error) {
+  console.error('Erreur lors de la récupération des catégories:', error);
+}
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="container">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-4xl font-display font-bold mb-6">
+        Nos Services & Produits
+      </h2>
+      <p class="text-lg text-gray-600">
+        Découvrez notre gamme complète d'équipements et services dédiés aux clubs et institutions sportives.
+        Une sélection rigoureuse des meilleures marques et un accompagnement personnalisé pour votre réussite.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+      {categories?.map(category => (
+        <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+          <div class="relative h-64 overflow-hidden">
+            <img
+              src={category.image_url}
+              alt={category.name}
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="text-2xl font-bold text-white mb-2">{category.name}</h3>
+              <p class="text-white/90">{category.description}</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex flex-wrap gap-2">
+              {category.category_tags?.map(tag => (
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+            <a 
+              href={`/services-produits/${category.id}`}
+              class="mt-4 inline-flex items-center text-primary font-semibold hover:text-primary/80"
+            >
+              En savoir plus
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+// Animation à l'apparition des cartes
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-fade-in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '50px'
+});
+
+document.querySelectorAll('#products-grid > div').forEach(card => {
+  observer.observe(card);
+});
+</script>
+
+<style>
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

@@ -1,0 +1,60 @@
+---
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Récupération des produits en vedette
+const { data: featuredProducts, error } = await supabase
+  .from('featured_products')
+  .select('*')
+  .eq('active', true)
+  .order('created_at', { ascending: false });
+
+if (error) {
+  console.error('Erreur lors de la récupération des produits en vedette:', error);
+}
+---
+
+<section class="py-5 bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">
+        Nos produits populaires
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Découvrez notre sélection de produits plébiscités par les clubs professionnels
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {featuredProducts?.map(product => (
+        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group">
+          <div class="relative">
+            <img 
+              src={product.image_url} 
+              alt={product.name}
+              class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
+              {product.badge}
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">{product.name}</h3>
+            <p class="text-gray-600 mb-4">{product.description}</p>
+            <div class="flex justify-end">
+              <a href={`/contact?product=${encodeURIComponent(product.name)}`} class="btn-primary">
+                Demander un devis
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  
+  </div>
+</section>

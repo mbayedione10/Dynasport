@@ -1,0 +1,96 @@
+---
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Récupération des marques
+const { data: brands, error } = await supabase
+  .from('brands')
+  .select('*')
+  .eq('active', true)
+  .order('order', { ascending: true });
+
+if (error) {
+  console.error('Erreur lors de la récupération des marques:', error);
+}
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="container">
+    <h2 class="text-3xl font-display font-bold text-center mb-12">
+      Nos marques partenaires
+    </h2>
+
+    <div class="swiper brands-swiper">
+      <div class="swiper-wrapper">
+        {brands?.map(brand => (
+          <div class="swiper-slide">
+            <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow h-32 flex items-center justify-center">
+              <img 
+                src={brand.logo_url} 
+                alt={`Logo ${brand.name}`}
+                class="w-full h-16 object-contain"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="swiper-pagination mt-8"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+import Swiper from 'swiper';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+new Swiper('.brands-swiper', {
+  modules: [Pagination, Autoplay],
+  slidesPerView: 1,
+  spaceBetween: 32,
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  breakpoints: {
+    640: {
+      slidesPerView: 2,
+    },
+    768: {
+      slidesPerView: 3,
+    },
+    1024: {
+      slidesPerView: 4,
+    },
+  },
+});
+</script>
+
+<style>
+.swiper-pagination {
+  position: relative;
+  bottom: 0 !important;
+  margin-top: 2rem;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #1a365d;
+  opacity: 0.2;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+</style>

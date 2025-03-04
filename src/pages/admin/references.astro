@@ -1,0 +1,197 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+
+---
+
+<Layout
+  title="Gestion des Références"
+  description="Interface d'administration pour gérer les références clients"
+>
+  <Navigation />
+  
+  <main class="pt-20">
+    <div class="container py-12">
+      <h1 class="text-3xl font-bold mb-8">Gestion des Références</h1>
+      
+      <div class="bg-white rounded-lg shadow p-6">
+        <form id="reference-form" class="space-y-6">
+          <div>
+            <label for="team_name" class="block text-sm font-medium text-gray-700 mb-2">
+              Nom de l'équipe
+            </label>
+            <input
+              type="text"
+              id="team_name"
+              name="team_name"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+            />
+          </div>
+          
+          <div>
+            <label for="image" class="block text-sm font-medium text-gray-700 mb-2">
+              Image
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+            />
+          </div>
+          
+          <div>
+            <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+            ></textarea>
+          </div>
+          
+          <button type="submit" class="btn-primary">
+            Ajouter la référence
+          </button>
+        </form>
+
+        <div id="references-list" class="mt-12">
+          <h2 class="text-xl font-bold mb-4">Références existantes</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="references-grid">
+            <!-- Les références seront ajoutées ici dynamiquement -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Fonction pour charger les références
+async function loadReferences() {
+  const { data: references, error } = await supabase
+    .from('team_references')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Erreur lors du chargement des références:', error);
+    return;
+  }
+
+  const grid = document.getElementById('references-grid');
+  grid.innerHTML = '';
+
+  references.forEach(reference => {
+    const card = document.createElement('div');
+    card.className = 'bg-gray-50 rounded-lg p-4';
+    card.innerHTML = `
+      <img src="${reference.image_url}" alt="${reference.team_name}" class="w-full h-48 object-cover rounded-lg mb-4">
+      <h3 class="font-bold">${reference.team_name}</h3>
+      <p class="text-sm text-gray-600">${reference.description || ''}</p>
+      <button 
+        class="mt-4 text-red-600 hover:text-red-800" 
+        onclick="deleteReference('${reference.id}', '${reference.image_url}')"
+      >
+        Supprimer
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Fonction pour supprimer une référence
+async function deleteReference(id, imageUrl) {
+  if (!confirm('Êtes-vous sûr de vouloir supprimer cette référence ?')) {
+    return;
+  }
+
+  // Supprimer l'image du stockage si c'est une image uploadée
+  if (!imageUrl.startsWith('http')) {
+    await supabase.storage
+      .from('team-references')
+      .remove([imageUrl]);
+  }
+
+  // Supprimer la référence de la base de données
+  const { error } = await supabase
+    .from('team_references')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    console.error('Erreur lors de la suppression:', error);
+    return;
+  }
+
+  loadReferences();
+}
+
+// Gérer le formulaire d'ajout
+document.getElementById('reference-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const file = formData.get('image');
+  const teamName = formData.get('team_name');
+  const description = formData.get('description');
+
+  try {
+    let imageUrl;
+
+    // Upload de l'image
+    if (file.size > 0) {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      
+      const { error: uploadError, data } = await supabase.storage
+        .from('team-references')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+      
+      imageUrl = fileName;
+    }
+
+    // Création de la référence
+    const { error: insertError } = await supabase
+      .from('team_references')
+      .insert({
+        team_name: teamName,
+        image_url: imageUrl,
+        description: description
+      });
+
+    if (insertError) throw insertError;
+
+    // Réinitialiser le formulaire et recharger les références
+    e.target.reset();
+    loadReferences();
+
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de la référence:', error);
+    alert('Une erreur est survenue lors de l\'ajout de la référence');
+  }
+});
+
+// Charger les références au chargement de la page
+loadReferences();
+
+// Rendre la fonction deleteReference globale
+window.deleteReference = deleteReference;
+</script>

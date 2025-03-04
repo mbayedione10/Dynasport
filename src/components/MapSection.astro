@@ -1,0 +1,42 @@
+---
+---
+
+<section class="py-24 bg-white">
+  <div class="container">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-4xl font-display font-bold mb-6">
+        Nous trouver
+      </h2>
+      <p class="text-lg text-gray-600">
+        Rendez-nous visite dans notre showroom pour découvrir l'ensemble de nos produits.
+      </p>
+    </div>
+    
+    <div class="relative w-full h-[500px] rounded-xl overflow-hidden shadow-lg">
+      <div id="map" class="w-full h-full"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+import maplibregl from 'maplibre-gl';
+
+const map = new maplibregl.Map({
+  container: 'map',
+  style: 'https://api.maptiler.com/maps/streets/style.json?key=qJHGauFzPHKDD02Hc2nr',
+  center: [-17.4612, 14.6928], // Paris coordinates
+  zoom: 14
+});
+
+// Add marker
+new maplibregl.Marker()
+  .setLngLat([-17.4612, 14.6928])
+  .addTo(map);
+
+// Add navigation controls
+map.addControl(new maplibregl.NavigationControl());
+</script>
+
+<style is:global>
+@import 'maplibre-gl/dist/maplibre-gl.css';
+</style>

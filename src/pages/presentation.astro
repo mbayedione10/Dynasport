@@ -1,0 +1,749 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Récupération des catégories pour afficher la diversité des sports
+const { data: categories, error } = await supabase
+  .from('categories')
+  .select('*')
+  .order('name', { ascending: true });
+
+if (error) {
+  console.error('Erreur lors de la récupération des catégories:', error);
+}
+
+// Données pour les sports couverts
+const sports = [
+  {
+    name: 'Football',
+    icon: '⚽',
+    description: 'Équipements complets pour clubs professionnels et amateurs',
+    image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800'
+  },
+  {
+    name: 'Basketball',
+    icon: '🏀',
+    description: 'Tenues, ballons et accessoires de qualité professionnelle',
+    image: 'https://images.unsplash.com/photo-1546519638-68e109acd27d?w=800'
+  },
+  {
+    name: 'Tennis',
+    icon: '🎾',
+    description: 'Équipements et accessoires pour courts intérieurs et extérieurs',
+    image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800'
+  },
+  {
+    name: 'Running',
+    icon: '🏃',
+    description: 'Chaussures et vêtements techniques pour tous les niveaux',
+    image: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800'
+  },
+  {
+    name: 'Natation',
+    icon: '🏊',
+    description: 'Équipements pour nageurs et clubs de natation',
+    image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800'
+  },
+  {
+    name: 'Volleyball',
+    icon: '🏐',
+    description: 'Matériel complet pour équipes et tournois',
+    image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800'
+  }
+];
+
+// Données pour les gammes de produits
+const productRanges = [
+  {
+    name: 'Vêtements',
+    icon: '👕',
+    description: 'Maillots, shorts, survêtements et tenues d\'entraînement personnalisables',
+    forClubs: 'Personnalisation aux couleurs du club, résistance accrue pour usage intensif',
+    forIndividuals: 'Confort optimal, design tendance, adaptés à tous les niveaux de pratique'
+  },
+  {
+    name: 'Chaussures',
+    icon: '👟',
+    description: 'Chaussures spécifiques pour chaque sport et type de terrain',
+    forClubs: 'Tarifs préférentiels pour commandes groupées, modèles adaptés à l\'intensité professionnelle',
+    forIndividuals: 'Large choix de modèles, conseils personnalisés selon votre morphologie et pratique'
+  },
+  {
+    name: 'Accessoires',
+    icon: '🎒',
+    description: 'Ballons, sacs, protections et équipements d\'entraînement',
+    forClubs: 'Matériel d\'entraînement professionnel, accessoires durables pour usage intensif',
+    forIndividuals: 'Accessoires de qualité pour améliorer votre pratique et votre confort'
+  },
+  {
+    name: 'Équipement Technique',
+    icon: '⚙️',
+    description: 'Matériel d\'analyse, outils de mesure et équipements spécialisés',
+    forClubs: 'Solutions complètes pour l\'analyse de performance et l\'entraînement de haut niveau',
+    forIndividuals: 'Outils accessibles pour suivre votre progression et améliorer vos performances'
+  }
+];
+
+// Avantages par type de client
+const clientAdvantages = {
+  clubs: [
+    {
+      title: 'Tarifs dégressifs',
+      description: 'Bénéficiez de remises importantes sur les commandes en volume',
+      icon: '💰'
+    },
+    {
+      title: 'Personnalisation complète',
+      description: 'Service de flocage, broderie et personnalisation aux couleurs de votre club',
+      icon: '🎨'
+    },
+    {
+      title: 'Livraison prioritaire',
+      description: 'Délais de livraison optimisés pour respecter votre calendrier sportif',
+      icon: '🚚'
+    },
+    {
+      title: 'Compte dédié',
+      description: 'Un conseiller personnel pour suivre tous vos besoins',
+      icon: '👨‍💼'
+    },
+    {
+      title: 'Boutique en ligne',
+      description: 'Création d\'une boutique en ligne dédiée pour vos membres',
+      icon: '🛒'
+    }
+  ],
+  individuals: [
+    {
+      title: 'Conseil expert',
+      description: 'Bénéficiez de l\'expertise de nos conseillers pour choisir l\'équipement adapté',
+      icon: '🔍'
+    },
+    {
+      title: 'Programme fidélité',
+      description: 'Cumulez des points sur chaque achat et bénéficiez de réductions exclusives',
+      icon: '🎁'
+    },
+    {
+      title: 'Garantie satisfaction',
+      description: 'Essayez votre équipement et échangez-le si vous n\'êtes pas satisfait',
+      icon: '✅'
+    },
+    {
+      title: 'Livraison rapide',
+      description: 'Livraison à domicile sous 48h pour tous vos équipements',
+      icon: '⚡'
+    },
+    {
+      title: 'Ateliers et événements',
+      description: 'Participez à nos ateliers et événements exclusifs avec des athlètes professionnels',
+      icon: '🏆'
+    }
+  ]
+};
+
+// Services spécifiques
+const services = {
+  clubs: [
+    {
+      title: 'Équipement complet d\'équipe',
+      description: 'Fourniture de l\'ensemble des équipements pour vos équipes, des maillots aux accessoires',
+      icon: '👥'
+    },
+    {
+      title: 'Personnalisation avancée',
+      description: 'Service complet de design, flocage et broderie aux couleurs de votre club',
+      icon: '✂️'
+    },
+    {
+      title: 'Gestion de stock dédiée',
+      description: 'Nous gérons votre stock d\'équipements pour assurer des renouvellements rapides',
+      icon: '📦'
+    },
+    {
+      title: 'Équipement des infrastructures',
+      description: 'Fourniture et installation de matériel pour vos terrains et installations',
+      icon: '🏟️'
+    },
+    {
+      title: 'Boutique club personnalisée',
+      description: 'Création d\'une boutique en ligne ou physique aux couleurs de votre club',
+      icon: '🏪'
+    }
+  ],
+  individuals: [
+    {
+      title: 'Analyse technique personnalisée',
+      description: 'Analyse de votre pratique pour vous recommander l\'équipement parfaitement adapté',
+      icon: '📊'
+    },
+    {
+      title: 'Service après-vente premium',
+      description: 'Assistance et service après-vente réactif pour tous vos équipements',
+      icon: '🛠️'
+    },
+    {
+      title: 'Personnalisation individuelle',
+      description: 'Personnalisez vos équipements avec votre nom, numéro ou design unique',
+      icon: '👤'
+    },
+    {
+      title: 'Conseils d\'experts',
+      description: 'Rendez-vous avec nos experts pour des conseils personnalisés sur votre équipement',
+      icon: '💬'
+    },
+    {
+      title: 'Programme d\'essai',
+      description: 'Testez certains équipements avant achat pour faire le meilleur choix',
+      icon: '🔄'
+    }
+  ]
+};
+
+// Exemples concrets
+const caseStudies = [
+  {
+    title: 'FC Marseille - Équipement complet',
+    description: 'Fourniture de l\'ensemble des équipements pour les équipes professionnelles et de jeunes, création d\'une boutique en ligne dédiée et gestion des stocks sur mesure.',
+    image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800',
+    type: 'club'
+  },
+  {
+    title: 'Centre d\'entraînement Elite - Matériel technique',
+    description: 'Installation complète d\'équipements d\'analyse de performance, fourniture de matériel d\'entraînement spécialisé et formation des entraîneurs à leur utilisation.',
+    image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
+    type: 'club'
+  },
+  {
+    title: 'Thomas M. - Marathonien amateur',
+    description: 'Analyse complète de la foulée, recommandation personnalisée de chaussures et équipements techniques, suivi régulier et ajustements selon la progression.',
+    image: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800',
+    type: 'individual'
+  },
+  {
+    title: 'Équipe de tennis universitaire',
+    description: 'Fourniture d\'équipements homogènes pour toute l\'équipe, service de cordage sur site et maintenance régulière du matériel technique.',
+    image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800',
+    type: 'club'
+  }
+];
+---
+
+<Layout 
+  title="Présentation Dynasports" 
+  description="Découvrez l'expertise de Dynasports dans la vente d'équipements sportifs pour clubs et particuliers, notre diversité de sports couverts et nos services personnalisés."
+>
+  <Navigation />
+  
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-24 bg-primary overflow-hidden">
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1920')] bg-cover bg-center opacity-20"></div>
+      <div class="container relative">
+        <div class="max-w-3xl">
+          <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            L'Excellence Sportive à Votre Service
+          </h1>
+          <p class="text-xl text-white/90 mb-8">
+            Depuis 1998, DYNASPORTS s'engage à fournir des équipements sportifs d'excellence aux clubs, institutions et particuliers passionnés de sport.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/contact" class="btn bg-white text-primary hover:bg-white/90">
+              Demander un devis
+            </a>
+            <a href="/services-produits" class="btn-secondary">
+              Découvrir nos produits
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notre expertise -->
+    <section class="py-20 bg-white">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Notre Expertise
+          </h2>
+          <p class="text-lg text-gray-600">
+            DYNASPORTS s'est imposé comme le leader de l'équipement sportif en France, servant aussi bien les clubs professionnels que les sportifs individuels avec la même exigence de qualité et de service.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl font-bold mb-4">Pour les Clubs et Institutions</h3>
+            <p class="text-gray-600 mb-6">
+              Nous accompagnons les clubs sportifs de tous niveaux dans l'équipement complet de leurs équipes. De la personnalisation des tenues aux équipements d'entraînement spécialisés, nous offrons des solutions complètes adaptées aux besoins spécifiques de chaque structure.
+            </p>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start gap-2">
+                <svg class="h-6 w-6 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Équipement complet d'équipes</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="h-6 w-6 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Tarifs préférentiels pour commandes en volume</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="h-6 w-6 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Service de personnalisation aux couleurs du club</span>
+              </li>
+            </ul>
+            <a href="/contact?subject=clubs" class="btn-primary">
+              Solutions pour clubs
+            </a>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold mb-4">Pour les Particuliers</h3>
+            <p class="text-gray-600 mb-6">
+              Que vous soyez sportif amateur ou confirmé, nous vous proposons un accompagnement personnalisé pour choisir l'équipement parfaitement adapté à votre pratique. Notre expertise technique et notre large gamme de produits vous garantissent satisfaction.
+            </p>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start gap-2">
+                <svg class="h-6 w-6 text-secondary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Conseil personnalisé par des experts</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="h-6 w-6 text-secondary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Large choix d'équipements de qualité</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="h-6 w-6 text-secondary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Service après-vente réactif et efficace</span>
+              </li>
+            </ul>
+            <a href="/contact?subject=particuliers" class="btn-secondary">
+              Équipements pour particuliers
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Diversité des sports -->
+    <section class="py-20 bg-gray-50">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Une Expertise Multi-Sports
+          </h2>
+          <p class="text-lg text-gray-600">
+            Chez DYNASPORTS, nous couvrons une large gamme de disciplines sportives, avec des équipements spécifiques et adaptés à chaque pratique.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {sports.map(sport => (
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group">
+              <div class="relative h-48">
+                <img 
+                  src={sport.image} 
+                  alt={sport.name}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                  <div class="flex items-center gap-2">
+                    <span class="text-2xl">{sport.icon}</span>
+                    <h3 class="text-xl font-bold text-white">{sport.name}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-gray-600">{sport.description}</p>
+                <a 
+                  href={`/services-produits?sport=${sport.name.toLowerCase()}`}
+                  class="mt-4 inline-flex items-center text-primary font-semibold hover:text-primary/80"
+                >
+                  Découvrir les équipements
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Gammes de produits -->
+    <section class="py-20 bg-white">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Nos Gammes de Produits
+          </h2>
+          <p class="text-lg text-gray-600">
+            Des vêtements aux équipements techniques, découvrez notre offre complète adaptée à chaque besoin.
+          </p>
+        </div>
+
+        <div class="space-y-16">
+          {productRanges.map((range, index) => (
+            <div class={`grid md:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+              <div class={`${index % 2 === 1 ? 'md:order-2' : ''}`}>
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="text-4xl">{range.icon}</span>
+                  <h3 class="text-2xl font-bold">{range.name}</h3>
+                </div>
+                <p class="text-gray-600 mb-6">{range.description}</p>
+                
+                <div class="bg-primary/5 p-6 rounded-lg mb-4">
+                  <h4 class="font-bold text-primary mb-2">Pour les clubs</h4>
+                  <p>{range.forClubs}</p>
+                </div>
+                
+                <div class="bg-secondary/5 p-6 rounded-lg">
+                  <h4 class="font-bold text-secondary mb-2">Pour les particuliers</h4>
+                  <p>{range.forIndividuals}</p>
+                </div>
+              </div>
+              
+              <div class={`bg-gray-100 p-8 rounded-xl ${index % 2 === 1 ? 'md:order-1' : ''}`}>
+                <h4 class="text-xl font-bold mb-4">Exemples de produits</h4>
+                <ul class="space-y-4">
+                  {range.name === 'Vêtements' && (
+                    <>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">01</span>
+                        <div>
+                          <span class="font-bold">Maillots personnalisés</span>
+                          <p class="text-sm text-gray-600">Maillots techniques personnalisables aux couleurs de votre choix</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">02</span>
+                        <div>
+                          <span class="font-bold">Survêtements d'entraînement</span>
+                          <p class="text-sm text-gray-600">Tenues complètes pour l'entraînement et la compétition</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">03</span>
+                        <div>
+                          <span class="font-bold">Vêtements techniques</span>
+                          <p class="text-sm text-gray-600">Équipements spécifiques adaptés à chaque discipline</p>
+                        </div>
+                      </li>
+                    </>
+                  )}
+                  
+                  {range.name === 'Chaussures' && (
+                    <>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">01</span>
+                        <div>
+                          <span class="font-bold">Chaussures de football</span>
+                          <p class="text-sm text-gray-600">Pour tous types de terrains (synthétique, naturel, indoor)</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">02</span>
+                        <div>
+                          <span class="font-bold">Chaussures de running</span>
+                          <p class="text-sm text-gray-600">Adaptées à votre foulée et à votre pratique</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">03</span>
+                        <div>
+                          <span class="font-bold">Chaussures spécifiques</span>
+                          <p class="text-sm text-gray-600">Pour chaque sport (basketball, tennis, handball...)</p>
+                        </div>
+                      </li>
+                    </>
+                  )}
+                  
+                  {range.name === 'Accessoires' && (
+                    <>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">01</span>
+                        <div>
+                          <span class="font-bold">Ballons officiels</span>
+                          <p class="text-sm text-gray-600">Ballons de match et d'entraînement pour tous sports</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">02</span>
+                        <div>
+                          <span class="font-bold">Protections</span>
+                          <p class="text-sm text-gray-600">Protège-tibias, genouillères, coudières, etc.</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">03</span>
+                        <div>
+                          <span class="font-bold">Sacs et bagagerie</span>
+                          <p class="text-sm text-gray-600">Sacs individuels et d'équipe personnalisables</p>
+                        </div>
+                      </li>
+                    </>
+                  )}
+                  
+                  {range.name === 'Équipement Technique' && (
+                    <>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">01</span>
+                        <div>
+                          <span class="font-bold">Matériel d'entraînement</span>
+                          <p class="text-sm text-gray-600">Cônes, haies, échelles de rythme, mannequins...</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">02</span>
+                        <div>
+                          <span class="font-bold">Équipement d'analyse</span>
+                          <p class="text-sm text-gray-600">Outils de mesure de performance et d'analyse technique</p>
+                        </div>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="bg-primary/10 p-2 rounded-full text-primary">03</span>
+                        <div>
+                          <span class="font-bold">Équipement de terrain</span>
+                          <p class="text-sm text-gray-600">Buts, filets, poteaux et équipements d'infrastructure</p>
+                        </div>
+                      </li>
+                    </>
+                  )}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Avantages par type de client -->
+    <section class="py-20 bg-gray-50">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Avantages Exclusifs
+          </h2>
+          <p class="text-lg text-gray-600">
+            Découvrez les avantages spécifiques que nous proposons selon votre profil.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Avantages pour les clubs -->
+          <div class="bg-white p-8 rounded-xl shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="bg-primary/10 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold">Pour les Clubs</h3>
+            </div>
+            
+            <div class="space-y-6">
+              {clientAdvantages.clubs.map(advantage => (
+                <div class="flex items-start gap-4">
+                  <div class="text-3xl">{advantage.icon}</div>
+                  <div>
+                    <h4 class="font-bold text-lg">{advantage.title}</h4>
+                    <p class="text-gray-600">{advantage.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div class="mt-8">
+              <a href="/contact?subject=clubs" class="btn-primary w-full text-center">
+                Demander un devis club
+              </a>
+            </div>
+          </div>
+          
+          <!-- Avantages pour les particuliers -->
+          <div class="bg-white p-8 rounded-xl shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="bg-secondary/10 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold">Pour les Particuliers</h3>
+            </div>
+            
+            <div class="space-y-6">
+              {clientAdvantages.individuals.map(advantage => (
+                <div class="flex items-start gap-4">
+                  <div class="text-3xl">{advantage.icon}</div>
+                  <div>
+                    <h4 class="font-bold text-lg">{advantage.title}</h4>
+                    <p class="text-gray-600">{advantage.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div class="mt-8">
+              <a href="/contact?subject=particuliers" class="btn-secondary w-full text-center">
+                Prendre rendez-vous
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services spécifiques -->
+    <section class="py-20 bg-white">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Services Sur Mesure
+          </h2>
+          <p class="text-lg text-gray-600">
+            Nous proposons des services adaptés à chaque profil, pour répondre précisément à vos besoins.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Services pour les clubs -->
+          <div>
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+              <div class="bg-primary/10 p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              Services pour Clubs
+            </h3>
+            
+            <div class="space-y-6">
+              {services.clubs.map(service => (
+                <div class="bg-gray-50 p-6 rounded-lg">
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class="text-2xl">{service.icon}</span>
+                    <h4 class="font-bold">{service.title}</h4>
+                  </div>
+                  <p class="text-gray-600">{service.description}</p>
+                </div>
+              ))}
+            </div>
+            
+            <div class="mt-8">
+              <a href="/contact?subject=services-clubs" class="btn-primary">
+                En savoir plus
+              </a>
+            </div>
+          </div>
+          
+          <!-- Services pour les particuliers -->
+          <div>
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+              <div class="bg-secondary/10 p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              Services pour Particuliers
+            </h3>
+            
+            <div class="space-y-6">
+              {services.individuals.map(service => (
+                <div class="bg-gray-50 p-6 rounded-lg">
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class="text-2xl">{service.icon}</span>
+                    <h4 class="font-bold">{service.title}</h4>
+                  </div>
+                  <p class="text-gray-600">{service.description}</p>
+                </div>
+              ))}
+            </div>
+            
+            <div class="mt-8">
+              <a href="/contact?subject=services-particuliers" class="btn-secondary">
+                En savoir plus
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exemples concrets -->
+    <section class="py-20 bg-gray-50">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Ils Nous Font Confiance
+          </h2>
+          <p class="text-lg text-gray-600">
+            Découvrez quelques exemples concrets de notre accompagnement.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {caseStudies.map(study => (
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+              <div class="relative h-64">
+                <img 
+                  src={study.image} 
+                  alt={study.title}
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold">
+                  {study.type === 'club' ? 'Club' : 'Particulier'}
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">{study.title}</h3>
+                <p class="text-gray-600">{study.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-primary text-white">
+      <div class="container">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">
+            Prêt à Passer à l'Action ?
+          </h2>
+          <p class="text-xl mb-8">
+            Contactez-nous dès aujourd'hui pour discuter de vos besoins spécifiques et découvrir comment DYNASPORTS peut vous accompagner dans votre réussite sportive.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="/contact?subject=clubs" class="btn bg-white text-primary hover:bg-white/90">
+              Pour les clubs
+            </a>
+            <a href="/contact?subject=particuliers" class="btn-secondary">
+              Pour les particuliers
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

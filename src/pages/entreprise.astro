@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+
+const values = [
+  {
+    icon: '🎯',
+    title: 'Excellence',
+    description: 'Nous visons l\'excellence dans chaque aspect de notre service.'
+  },
+  {
+    icon: '🤝',
+    title: 'Partenariat',
+    description: 'Nous construisons des relations durables avec nos clients.'
+  },
+  {
+    icon: '💡',
+    title: 'Innovation',
+    description: 'Nous innovons constamment pour répondre aux besoins évolutifs du sport.'
+  },
+  {
+    icon: '⚡',
+    title: 'Réactivité',
+    description: 'Nous nous engageons à être réactifs et flexibles.'
+  }
+];
+
+const stats = [
+  {
+    number: '25+',
+    label: 'Années d\'expérience'
+  },
+  {
+    number: '1000+',
+    label: 'Clubs équipés'
+  },
+  {
+    number: '50k+',
+    label: 'Produits livrés'
+  },
+  {
+    number: '98%',
+    label: 'Clients satisfaits'
+  }
+];
+---
+
+<Layout
+  title="Notre Entreprise"
+  description="Découvrez l'histoire, les valeurs et la vision de DYNASPORTS, votre partenaire de confiance dans l'équipement sportif professionnel depuis 1998."
+>
+  <Navigation />
+  
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-24 bg-primary overflow-hidden">
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1920')] bg-cover bg-center opacity-20"></div>
+      <div class="container relative">
+        <div class="max-w-3xl">
+          <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            Notre Histoire
+          </h1>
+          <p class="text-xl text-white/90 mb-8">
+            Depuis 1998, DYNASPORTS s'engage à fournir des équipements sportifs d'excellence aux clubs et institutions. Notre passion pour le sport et notre engagement envers la qualité nous ont permis de devenir un leader reconnu dans notre domaine.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-24 bg-gray-50">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Nos Valeurs
+          </h2>
+          <p class="text-lg text-gray-600">
+            Ces valeurs guident chacune de nos actions et reflètent notre engagement envers l'excellence sportive.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map(value => (
+            <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-all">
+              <div class="text-4xl mb-4">{value.icon}</div>
+              <h3 class="text-xl font-bold mb-2">{value.title}</h3>
+              <p class="text-gray-600">{value.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-24 bg-primary text-white">
+      <div class="container">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map(stat => (
+            <div class="text-center">
+              <div class="text-4xl font-bold mb-2">{stat.number}</div>
+              <div class="text-white/80">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-24 bg-white">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Notre Engagement
+          </h2>
+          <p class="text-lg text-gray-600">
+            Chez DYNASPORTS, nous nous engageons à fournir des équipements sportifs de la plus haute qualité, accompagnés d'un service client exceptionnel. Notre équipe passionnée travaille sans relâche pour répondre aux besoins spécifiques de chaque club et institution sportive.
+          </p>
+          <div class="mt-8">
+            <a href="/contact" class="btn-primary">
+              Contactez-nous
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

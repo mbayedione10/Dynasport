@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import ContactForm from '../components/ContactForm.astro';
+import StoreShowcase from '../components/StoreShowcase.astro';
+import MapSection from '../components/MapSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="Contact" 
+  description="Contactez DYNASPORTS pour toute demande d'information ou de devis concernant nos équipements sportifs professionnels."
+>
+  <Navigation />
+  
+  <main class="pt-20">
+    <section class="bg-gray-50 py-12">
+      <div class="container">
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="/" class="text-gray-700 hover:text-primary">Accueil</a>
+            </li>
+            <li aria-current="page">
+              <div class="flex items-center">
+                <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                </svg>
+                <span class="text-gray-500">Contact</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h1 class="text-4xl font-display font-bold mb-6">Contactez-nous</h1>
+          <p class="text-lg text-gray-600">
+            Notre équipe est à votre disposition pour répondre à toutes vos questions et vous accompagner dans vos projets d'équipement sportif.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ContactForm />
+    <StoreShowcase />
+    <MapSection />
+  </main>
+
+  <Footer />
+</Layout>
