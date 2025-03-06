@@ -2,37 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
 
-const { data: references, error } = await supabase
-  .from('team_references')
-  .select('*')
-  .eq('active', true)
-  .order('created_at', { ascending: false });
 
-if (error) {
-  console.error('Erreur lors de la récupération des références:', error);
+// Récupération des images Dynasport du dossier public
+import { readdir } from 'node:fs/promises';
+import path from 'node:path';
+
+let dynasportImages = [];
+try {
+  const files = await readdir(path.resolve('./public/images/Dynasport'));
+  // Filtrer pour n'avoir que les images (jpg, jpeg, png, gif, webp)
+  dynasportImages = files
+    .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
+    .filter(file => file !== 'image_placeholder.jpg') // Exclure l'image placeholder
+    .map(file => `/images/Dynasport/${file}`);
+} catch (error) {
+  console.error('Erreur lors de la lecture du dossier Dynasport:', error);
 }
 
-// Fonction pour obtenir l'URL publique d'une image
-function getImageUrl(imagePath: string) {
-  if (imagePath.startsWith('http')) {
-    return imagePath; // C'est déjà une URL externe
-  }
-  
-  // Construire l'URL du stockage Supabase
-  const { data: { publicUrl } } = supabase
-    .storage
-    .from('team-references')
-    .getPublicUrl(imagePath);
-    
-  return publicUrl;
-}
 ---
 
 <Layout
@@ -40,7 +28,7 @@ function getImageUrl(imagePath: string) {
   description="Découvrez les clubs et institutions qui nous font confiance pour leurs équipements sportifs."
 >
   <Navigation />
-  
+
   <main class="pt-20">
     <!-- Hero Section -->
     <section class="relative py-24 bg-primary overflow-hidden">
@@ -51,45 +39,55 @@ function getImageUrl(imagePath: string) {
             Nos Références
           </h1>
           <p class="text-xl text-white/90 mb-8">
-            Ils nous font confiance pour leurs équipements sportifs. Découvrez nos partenariats avec les plus grands clubs.
+Découvrez notre gamme d’équipements sportifs à travers une sélection de nos réalisations et produits phares.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section class="py-24 bg-gray-50">
+    <!-- Dynasport Gallery Section -->
+    <section class="py-24 bg-white">
       <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {references?.map(reference => (
-            <div 
-              class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
-              transition:name={`reference-${reference.id}`}
-            >
-              <div class="relative aspect-[4/3] overflow-hidden">
-                <img
-                  src={getImageUrl(reference.image_url)}
-                  alt={reference.team_name}
-                  class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                    <h3 
-                      class="text-2xl font-bold text-white mb-2"
-                      transition:name={`reference-title-${reference.id}`}
-                    >
-                      {reference.team_name}
-                    </h3>
-                    {reference.description && (
-                      <p class="text-white/90">{reference.description}</p>
-                    )}
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Nos Références
+          </h2>
+          <p class="text-lg text-gray-600 mb-8">
+            Découvrez notre gamme d'équipements sportifs à travers une sélection de nos réalisations et produits phares.
+          </p>
+        </div>
+
+        {dynasportImages.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {dynasportImages.map((imagePath, index) => (
+              <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="relative aspect-square overflow-hidden">
+                  <img
+                    src={imagePath}
+                    alt={`Image Dynasport ${index + 1}`}
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    onerror="this.onerror=null; this.src='/images/Dynasport/image_placeholder.jpg';"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                      <span class="inline-block px-3 py-1 bg-primary/80 text-white text-sm rounded-full mb-2">
+                        Équipement Pro
+                      </span>
+                      <p class="text-white/90 text-sm">
+                        Réalisation personnalisée
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center p-8 bg-gray-100 rounded-lg">
+            <p>Aucune image trouvée dans le dossier Dynasport. Veuillez ajouter des images pour les afficher ici.</p>
+          </div>
+        )}
       </div>
     </section>
 
