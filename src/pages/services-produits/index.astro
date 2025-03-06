@@ -1,8 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.astro';
-import Footer from '../../components/Footer.astro';
-import { createClient } from '@supabase/supabase-js';
+import Layout from "../../layouts/Layout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
   import.meta.env.PUBLIC_SUPABASE_URL,
@@ -11,26 +11,28 @@ const supabase = createClient(
 
 // Récupération des catégories et leurs tags
 const { data: categories, error } = await supabase
-  .from('categories')
-  .select(`
+  .from("categories")
+  .select(
+    `
     *,
     category_tags (
       name
     )
-  `)
-  .order('updated_at', { ascending: false });
+  `
+  )
+  .order("updated_at", { ascending: false });
 
 if (error) {
-  console.error('Erreur lors de la récupération des catégories:', error);
+  console.error("Erreur lors de la récupération des catégories:", error);
 }
 ---
 
-<Layout 
-  title="Services & Produits" 
+<Layout
+  title="Services & Produits"
   description="Découvrez notre gamme complète d'équipements et services dédiés aux clubs et institutions sportives."
 >
   <Navigation />
-  
+
   <main class="pt-20">
     <section class="bg-gray-50 py-12">
       <div class="container">
@@ -41,8 +43,19 @@ if (error) {
             </li>
             <li aria-current="page">
               <div class="flex items-center">
-                <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                <svg
+                  class="w-3 h-3 text-gray-400 mx-1"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 9 4-4-4-4"></path>
                 </svg>
                 <span class="text-gray-500">Services & Produits</span>
               </div>
@@ -50,48 +63,70 @@ if (error) {
           </ol>
         </nav>
 
-        <h1 class="text-4xl font-display font-bold mb-6">Services & Produits</h1>
+        <h1 class="text-4xl font-display font-bold mb-6">
+          Services & Produits
+        </h1>
         <p class="text-lg text-gray-600 max-w-3xl mb-12">
-          Découvrez notre gamme complète d'équipements et services dédiés aux clubs et institutions sportives.
-          Une sélection rigoureuse des meilleures marques et un accompagnement personnalisé pour votre réussite.
+          Découvrez notre gamme complète d'équipements et services dédiés aux
+          clubs et institutions sportives. Une sélection rigoureuse des
+          meilleures marques et un accompagnement personnalisé pour votre
+          réussite.
         </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
-          {categories?.map(category => (
-            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <div class="relative h-64 overflow-hidden">
-                <img
-                  src={category.image_url}
-                  alt={category.name}
-                  class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 class="text-2xl font-bold text-white mb-2">{category.name}</h3>
-                  <p class="text-white/90">{category.description}</p>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          id="products-grid"
+        >
+          {
+            categories?.map((category) => (
+              <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                <div class="relative h-64 overflow-hidden">
+                  <a href={`/services-produits/${category.id}`}>
+                    <img
+                      src={category.image_url}
+                      alt={category.name}
+                      class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 class="text-2xl font-bold text-white mb-2">
+                        {category.name}
+                      </h3>
+                      <p class="text-white/90">{category.description}</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="p-6">
+                  <div class="flex flex-wrap gap-2">
+                    {category.category_tags?.map((tag) => (
+                      <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={`/services-produits/${category.id}`}
+                    class="mt-4 inline-flex items-center text-primary font-semibold hover:text-primary/80"
+                  >
+                    En savoir plus
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 ml-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </a>
                 </div>
               </div>
-              <div class="p-6">
-                <div class="flex flex-wrap gap-2">
-                  {category.category_tags?.map(tag => (
-                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
-                      {tag.name}
-                    </span>
-                  ))}
-                </div>
-                <a 
-                  href={`/services-produits/${category.id}`}
-                  class="mt-4 inline-flex items-center text-primary font-semibold hover:text-primary/80"
-                >
-                  En savoir plus
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </section>
@@ -101,37 +136,40 @@ if (error) {
 </Layout>
 
 <script>
-// Animation à l'apparition des cartes
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('animate-fade-in');
-      observer.unobserve(entry.target);
+  // Animation à l'apparition des cartes
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-fade-in");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "50px",
     }
-  });
-}, {
-  threshold: 0.1,
-  rootMargin: '50px'
-});
+  );
 
-document.querySelectorAll('#products-grid > div').forEach(card => {
-  observer.observe(card);
-});
+  document.querySelectorAll("#products-grid > div").forEach((card) => {
+    observer.observe(card);
+  });
 </script>
 
 <style>
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 </style>
