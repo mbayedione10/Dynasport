@@ -28,9 +28,23 @@ const map = new maplibregl.Map({
   zoom: 14
 });
 
-// Add marker
+// Create popup content with store image
+const popupContent = `
+  <div class="map-popup">
+    <img src="https://images.unsplash.com/photo-1647427854253-b92bb40c9330" alt="Notre boutique" class="rounded-lg shadow-md w-full h-auto" style="max-width: 200px;" />
+    <div class="font-medium text-center mt-2">DYNASPORTS - Votre boutique</div>
+    <div class="text-sm text-gray-600 text-center">Ouvert du lundi au samedi de 9h à 19h</div>
+  </div>
+`;
+
+// Create popup
+const popup = new maplibregl.Popup({ offset: 25 })
+  .setHTML(popupContent);
+
+// Add marker with popup
 new maplibregl.Marker()
   .setLngLat([-17.4612, 14.6928])
+  .setPopup(popup)
   .addTo(map);
 
 // Add navigation controls
@@ -39,4 +53,14 @@ map.addControl(new maplibregl.NavigationControl());
 
 <style is:global>
 @import 'maplibre-gl/dist/maplibre-gl.css';
+
+/* Style personnalisé pour le popup */
+.maplibregl-popup-content {
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.map-popup {
+  max-width: 220px;
+}
 </style>

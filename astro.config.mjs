@@ -16,6 +16,9 @@ export default defineConfig({
     }
   },
   vite: {
+    server: {
+      allowedHosts: ['41b2abff-7d31-40d9-84e9-7aa90aaa51be-00-1o6ilov52hxa5.janeway.replit.dev']
+    },
     ssr: {
       noExternal: ['swiper', 'maplibre-gl']
     }

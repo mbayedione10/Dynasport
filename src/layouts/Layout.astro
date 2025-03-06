@@ -27,3 +27,23 @@ const { title, description } = Astro.props;
     <slot />
   </body>
 </html>
+
+<script>
+  // Réinitialiser les composants dynamiques après les transitions de page
+  document.addEventListener('astro:page-load', () => {
+    // Réinitialiser les carousels si le script swiper existe
+    if (typeof window.initializeCarousels === 'function') {
+      window.initializeCarousels();
+    }
+    
+    // Réinitialiser les cartes si le script maplibre existe
+    if (typeof window.initializeMap === 'function') {
+      window.initializeMap();
+    }
+    
+    // Réinitialiser les animations de témoignages
+    if (typeof window.initializeTestimonials === 'function') {
+      window.initializeTestimonials();
+    }
+  });
+</script>

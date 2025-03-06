@@ -50,30 +50,43 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-new Swiper('.brands-swiper', {
-  modules: [Pagination, Autoplay],
-  slidesPerView: 1,
-  spaceBetween: 32,
-  autoplay: {
-    delay: 3000,
-    disableOnInteraction: false,
-  },
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  breakpoints: {
-    640: {
-      slidesPerView: 2,
-    },
-    768: {
-      slidesPerView: 3,
-    },
-    1024: {
-      slidesPerView: 4,
-    },
-  },
-});
+// Fonction d'initialisation du carousel exposée globalement
+window.initializeCarousels = function() {
+  const brandsContainer = document.querySelector('.brands-swiper');
+  if (brandsContainer) {
+    new Swiper('.brands-swiper', {
+      modules: [Pagination, Autoplay],
+      slidesPerView: 1,
+      spaceBetween: 32,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        768: {
+          slidesPerView: 3,
+        },
+        1024: {
+          slidesPerView: 4,
+        },
+      },
+    });
+    console.log('Brands carousel initialized');
+  }
+};
+
+// Initialiser au chargement initial de la page
+document.addEventListener('DOMContentLoaded', window.initializeCarousels);
+
+// Également initialiser après la transition de page d'Astro
+document.addEventListener('astro:page-load', window.initializeCarousels);
 </script>
 
 <style>

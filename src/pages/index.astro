@@ -1,3 +1,4 @@
+
 ---
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
@@ -11,22 +12,158 @@ import ContactForm from '../components/ContactForm.astro';
 import MapSection from '../components/MapSection.astro';
 import Footer from '../components/Footer.astro';
 import StoreShowcase from '../components/StoreShowcase.astro';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Récupération des références des équipes
+const { data: teamReferences, error: teamError } = await supabase
+  .from('team_references')
+  .select('*')
+  .limit(6)
+  .order('created_at', { ascending: false });
+
+if (teamError) {
+  console.error('Erreur lors de la récupération des références d\'équipes:', teamError);
+}
+
+// Services spécifiques pour les différents profils
+const services = {
+  clubs: [
+    {
+      title: 'Équipement complet d\'équipe',
+      description: 'Fourniture de l\'ensemble des équipements pour vos équipes, des maillots aux accessoires',
+      icon: '👥'
+    },
+    {
+      title: 'Personnalisation avancée',
+      description: 'Service complet de design, flocage et broderie aux couleurs de votre club',
+      icon: '✂️'
+    },
+    {
+      title: 'Gestion de stock dédiée',
+      description: 'Nous gérons votre stock d\'équipements pour assurer des renouvellements rapides',
+      icon: '📦'
+    }
+  ],
+  individuals: [
+    {
+      title: 'Analyse technique personnalisée',
+      description: 'Analyse de votre pratique pour vous recommander l\'équipement parfaitement adapté',
+      icon: '📊'
+    },
+    {
+      title: 'Service après-vente premium',
+      description: 'Assistance et service après-vente réactif pour tous vos équipements',
+      icon: '🛠️'
+    },
+    {
+      title: 'Personnalisation individuelle',
+      description: 'Personnalisez vos équipements avec votre nom, numéro ou design unique',
+      icon: '👤'
+    }
+  ]
+};
+
 ---
 
 <Layout 
-  title="Accueil" 
-  description="DYNASPORTS - Votre partenaire de confiance pour l'équipement sportif professionnel. Découvrez notre gamme complète de produits et services."
+  title="DYNASPORTS - Équipements Sportifs Professionnels" 
+  description="DYNASPORTS - Votre partenaire de confiance pour l'équipement sportif professionnel pour clubs, institutions et particuliers. Découvrez notre gamme complète de produits et services."
 >
   <Navigation />
   <main>
     <HeroSection />
+    
+    <!-- Notre expertise Section -->
+    <section class="py-20 bg-white">
+      <div class="container">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Notre Expertise
+          </h2>
+          <p class="text-lg text-gray-600">
+            DYNASPORTS s'est imposé comme le leader de l'équipement sportif en France, servant aussi bien les clubs professionnels que les sportifs individuels avec la même exigence de qualité et de service.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl font-bold mb-4">Pour les Clubs et Institutions</h3>
+            <p class="text-gray-600 mb-6">
+              Nous accompagnons les clubs sportifs de tous niveaux dans l'équipement complet de leurs équipes. De la personnalisation des tenues aux équipements d'entraînement spécialisés, nous offrons des solutions complètes adaptées aux besoins spécifiques de chaque structure.
+            </p>
+            <ul class="space-y-3 mb-6">
+              {services.clubs.map(service => (
+                <li class="flex items-start gap-2">
+                  <span class="text-2xl">{service.icon}</span>
+                  <div>
+                    <span class="font-semibold">{service.title}</span>
+                    <p class="text-sm text-gray-600">{service.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <a href="/contact?subject=clubs" class="btn-primary">
+              Solutions pour clubs
+            </a>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold mb-4">Pour les Particuliers</h3>
+            <p class="text-gray-600 mb-6">
+              Que vous soyez sportif amateur ou confirmé, nous vous proposons un accompagnement personnalisé pour choisir l'équipement parfaitement adapté à votre pratique. Notre expertise technique et notre large gamme de produits vous garantissent satisfaction.
+            </p>
+            <ul class="space-y-3 mb-6">
+              {services.individuals.map(service => (
+                <li class="flex items-start gap-2">
+                  <span class="text-2xl">{service.icon}</span>
+                  <div>
+                    <span class="font-semibold">{service.title}</span>
+                    <p class="text-sm text-gray-600">{service.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <a href="/contact?subject=particuliers" class="btn-secondary">
+              Équipements pour particuliers
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <FeaturedProducts />
     <StoreShowcase />
+    
     <AboutSection />
     <ServicesProducts />
-    
     <BrandsCarousel />
     <Testimonials />
+
+    <!-- Prêt à passer à l'action -->
+    <section class="py-20 bg-primary text-white">
+      <div class="container">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">
+            Prêt à Passer à l'Action ?
+          </h2>
+          <p class="text-xl mb-8">
+            Contactez-nous dès aujourd'hui pour discuter de vos besoins spécifiques et découvrir comment DYNASPORTS peut vous accompagner dans votre réussite sportive.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="/contact?subject=clubs" class="btn bg-white text-primary hover:bg-white/90">
+              Pour les clubs
+            </a>
+            <a href="/contact?subject=particuliers" class="btn-secondary">
+              Pour les particuliers
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <ContactForm />
     <MapSection />
