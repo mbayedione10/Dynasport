@@ -116,5 +116,60 @@ const features = [
         </div>
       </div>
     </div>
+    
+    <!-- Section Visite Virtuelle -->
+    <div class="mt-20 mb-12 text-center">
+      <span class="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full mb-4 text-sm font-bold">
+        Nouveau • Expérience Immersive
+      </span>
+      <h2 class="text-3xl md:text-4xl font-display font-bold mb-6 text-gray-900">
+        Visite Virtuelle de Notre Boutique
+      </h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Explorez notre espace comme si vous y étiez. Naviguez à travers les différentes zones de notre showroom et découvrez notre sélection d'équipements sportifs professionnels.
+      </p>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div class="p-4 md:p-8 virtual-tour">
+        <div class="max-w-4xl mx-auto aspect-video relative rounded-lg overflow-hidden mb-8 border-4 border-primary shadow-xl">
+          <iframe 
+            src="https://my.matterport.com/show/?m=sample-id" 
+            width="100%" 
+            height="100%" 
+            frameborder="0" 
+            allowfullscreen 
+            allow="xr-spatial-tracking"
+            class="absolute top-0 left-0 w-full h-full">
+          </iframe>
+          <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+            <button class="bg-white/90 hover:bg-white text-primary px-6 py-3 rounded-full font-bold flex items-center gap-2 transition-all transform hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+              </svg>
+              Lancer la visite virtuelle
+            </button>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <div class="text-2xl text-primary mb-2">🔍</div>
+            <h3 class="font-bold text-lg mb-2">Navigation intuitive</h3>
+            <p class="text-gray-600">Déplacez-vous librement entre les différentes zones du magasin en quelques clics.</p>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <div class="text-2xl text-primary mb-2">💡</div>
+            <h3 class="font-bold text-lg mb-2">Points d'intérêt</h3>
+            <p class="text-gray-600">Découvrez nos produits phares grâce aux points d'information interactifs.</p>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <div class="text-2xl text-primary mb-2">📱</div>
+            <h3 class="font-bold text-lg mb-2">Multi-supports</h3>
+            <p class="text-gray-600">Expérience optimisée pour tous les appareils, du mobile au grand écran.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

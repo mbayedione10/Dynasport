@@ -1,8 +1,9 @@
 // Utilisation des chemins publics pour les images
-const jaraaf = "/images/partenaires/jaraaf.png";
-const douanes = "/images/partenaires/douanes.jpg";
-const gf = "/images/partenaires/gf.png";
-const wfc = "/images/partenaires/wfc.jpeg";
+const jaraaf = "/images/partenaires/jaraaf.webp";
+const douanes = "/images/partenaires/douanes.webp";
+const gf = "/images/partenaires/gf.webp";
+const wfc = "/images/partenaires/wfc.webp";
+const besport = "/images/partenaires/besport.svg";
 
 // Références statiques
 export const references = [
@@ -64,5 +65,10 @@ export const partenaires = [
       logo: wfc,
       name: "Wallydan FC de Thies ",
       href: "#",
+  },
+  {
+      logo: besport,
+      name: "Be Sport ",
+      href: "http://www.complexebesport.com",
   },
 ]
