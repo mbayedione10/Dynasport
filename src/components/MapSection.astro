@@ -19,37 +19,42 @@
 </section>
 
 <script>
-import maplibregl from 'maplibre-gl';
-
-const map = new maplibregl.Map({
-  container: 'map',
-  style: 'https://api.maptiler.com/maps/streets/style.json?key=qJHGauFzPHKDD02Hc2nr',
-  center: [-17.4612, 14.6928], // Paris coordinates
-  zoom: 14
-});
-
-// Create popup content with store image
-const popupContent = `
-  <div class="map-popup">
-    <img src="https://images.unsplash.com/photo-1647427854253-b92bb40c9330" alt="Notre boutique" class="rounded-lg shadow-md w-full h-auto" style="max-width: 200px;" />
-    <div class="font-medium text-center mt-2">DYNASPORTS - Votre boutique</div>
-    <div class="text-sm text-gray-600 text-center">Ouvert du lundi au samedi de 9h à 19h</div>
-  </div>
-`;
-
-// Create popup
-const popup = new maplibregl.Popup({ offset: 25 })
-  .setHTML(popupContent);
-
-// Add marker with popup
-new maplibregl.Marker()
-  .setLngLat([-17.4612, 14.6928])
-  .setPopup(popup)
-  .addTo(map);
-
-// Add navigation controls
-map.addControl(new maplibregl.NavigationControl());
-</script>
+  import maplibregl from 'maplibre-gl';
+  
+  const map = new maplibregl.Map({
+    container: 'map',
+    style: 'https://api.maptiler.com/maps/streets/style.json?key=qJHGauFzPHKDD02Hc2nr',
+    center: [-17.4612, 14.6928], // Paris coordinates
+    zoom: 14
+  });
+  
+  // Create popup content with store image
+  const popupContent = `
+    <div class="map-popup">
+      <img src="https://images.unsplash.com/photo-1647427854253-b92bb40c9330" alt="Notre boutique" class="rounded-lg shadow-md w-full h-auto" style="max-width: 200px;" />
+      <div class="font-medium text-center mt-2">DYNASPORTS - Votre boutique</div>
+      <div class="text-sm text-gray-600 text-center">Ouvert du lundi au samedi de 9h à 19h</div>
+    </div>
+  `;
+  
+  // Create popup
+  const popup = new maplibregl.Popup({ offset: 25 })
+    .setHTML(popupContent);
+  
+  // Add marker with popup
+  new maplibregl.Marker()
+    .setLngLat([-17.4612, 14.6928])
+    .setPopup(popup)
+    .addTo(map);
+  
+  // Add navigation controls
+  map.addControl(new maplibregl.NavigationControl());
+  
+  // Ensure the map resizes correctly after rendering
+  setTimeout(() => {
+    map.resize();
+  }, 300);
+  </script>
 
 <style is:global>
 @import 'maplibre-gl/dist/maplibre-gl.css';

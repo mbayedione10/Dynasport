@@ -1,4 +1,3 @@
-
 ---
 import { partenaires } from '../data/data';
 ---
@@ -6,129 +5,73 @@ import { partenaires } from '../data/data';
 <section class="py-20 bg-gray-50">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-display font-bold text-center mb-12">
-      Nos marques partenaires
+      Nos partenaires
     </h2>
-    
-    <div class="simple-carousel relative max-w-5xl mx-auto">
+
+    <div class="relative max-w-6xl mx-auto">
       <div class="overflow-hidden">
-        <div class="carousel-inner flex transition-transform duration-500 ease-in-out">
-          {partenaires.map((brand) => (
-            <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4">
-              <div class="rounded-lg h-40 flex items-center justify-center p-6 hover:shadow-sm transition-shadow">
-                <img 
-                  src={brand.logo} 
-                  alt={`Logo ${brand.name}`}
-                  class="w-full h-24 object-contain"
-                  loading="lazy"
-                  decoding="async"
-                  fetchpriority="low"
-                  width="180"
-                  height="96"
-                />
+        <div
+          id="carousel-track"
+          class="flex gap-6 transition-transform ease-in-out"
+        >
+          {
+            [...partenaires, ...partenaires].map((brand, index) => (
+              <div
+                class="flex-shrink-0 w-64 px-4"
+                key={index}
+              >
+                <div class="rounded-lg h-40 flex items-center justify-center p-6 hover:shadow-sm transition-shadow bg-white">
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name}`}
+                    class="w-full h-24 object-contain"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    width="180"
+                    height="96"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
-      </div>
-      
-      <div class="flex justify-center mt-8">
-        <button class="carousel-prev bg-white rounded-full shadow-md p-2 mr-2 hover:bg-gray-100 disabled:opacity-50">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          <span class="sr-only">Précédent</span>
-        </button>
-        <button class="carousel-next bg-white rounded-full shadow-md p-2 ml-2 hover:bg-gray-100 disabled:opacity-50">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-          <span class="sr-only">Suivant</span>
-        </button>
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const carousels = document.querySelectorAll('.simple-carousel');
-    
-    carousels.forEach(carousel => {
-      const container = carousel.querySelector('.carousel-inner');
-      const items = carousel.querySelectorAll('.carousel-item');
-      const prevBtn = carousel.querySelector('.carousel-prev');
-      const nextBtn = carousel.querySelector('.carousel-next');
-      
-      if (!container || !items.length || !prevBtn || !nextBtn) return;
-      
-      let currentIndex = 0;
-      const itemWidth = items[0].offsetWidth;
-      const itemCount = items.length;
-      const visibleItems = Math.floor(carousel.offsetWidth / itemWidth) || 1;
-      const maxIndex = Math.max(0, itemCount - visibleItems);
-      
-      // Fonction pour mettre à jour la position du carrousel
-      const updateCarousel = () => {
-        container.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-        prevBtn.disabled = currentIndex <= 0;
-        nextBtn.disabled = currentIndex >= maxIndex;
-      };
-      
-      // Configuration initiale
-      updateCarousel();
-      
-      // Écouteurs d'événements pour les boutons
-      prevBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          updateCarousel();
-        }
-      });
-      
-      nextBtn.addEventListener('click', () => {
-        if (currentIndex < maxIndex) {
-          currentIndex++;
-          updateCarousel();
-        }
-      });
-      
-      // Défilement automatique
-      let autoplayInterval;
-      const startAutoplay = () => {
-        autoplayInterval = setInterval(() => {
-          if (currentIndex < maxIndex) {
-            currentIndex++;
-          } else {
-            currentIndex = 0;
-          }
-          updateCarousel();
-        }, 4000); // 4 secondes entre chaque défilement
-      };
-      
-      const stopAutoplay = () => {
-        clearInterval(autoplayInterval);
-      };
-      
-      // Démarrer le défilement automatique
-      startAutoplay();
-      
-      // Arrêter le défilement au survol
-      carousel.addEventListener('mouseenter', stopAutoplay);
-      carousel.addEventListener('mouseleave', startAutoplay);
-      
-      // Réinitialiser le carrousel lors du redimensionnement de la fenêtre
-      window.addEventListener('resize', () => {
-        const newVisibleItems = Math.floor(carousel.offsetWidth / items[0].offsetWidth) || 1;
-        const newMaxIndex = Math.max(0, itemCount - newVisibleItems);
-        
-        if (currentIndex > newMaxIndex) {
-          currentIndex = newMaxIndex;
-        }
-        
-        updateCarousel();
-      });
-      
-      console.log("Carrousel simple initialisé avec succès");
+<style>
+  #carousel-track {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script is:client="load">
+  const track = document.getElementById('carousel-track');
+  let scrollAmount = 0;
+
+  function autoScroll() {
+    if (!track) return;
+
+    scrollAmount += 1;
+    track.scrollTo({
+      left: scrollAmount,
+      behavior: 'smooth'
     });
-  });
+
+    // Revenir au début quand la fin est atteinte
+    if (scrollAmount >= track.scrollWidth - track.clientWidth) {
+      scrollAmount = 0;
+    }
+  }
+
+  const interval = setInterval(autoScroll, 30);
 </script>

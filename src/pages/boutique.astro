@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import StoreShowcase from '../components/StoreShowcase.astro';
+import MapSection from '../components/MapSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="Boutique" 
+  description="Contactez DYNASPORTS pour toute demande d'information ou de devis concernant nos équipements sportifs professionnels."
+>
+  <Navigation />
+  
+  <main class="pt-20">
+    <StoreShowcase />
+    <MapSection />
+  </main>
+
+  <Footer />
+</Layout>
