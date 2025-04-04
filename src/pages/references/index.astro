@@ -1,0 +1,73 @@
+
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import { partenaires } from '../../data/data';
+
+---
+
+<Layout
+  title="Nos Partenaires"
+  description="Découvrez nos partenaires de confiance et leurs réalisations avec DYNASPORTS"
+>
+  <Navigation />
+
+  <main class="pt-20">
+    <section class="bg-gray-50 py-12">
+      <div class="container">
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="/" class="text-gray-700 hover:text-primary">Accueil</a>
+            </li>
+            <li aria-current="page">
+              <div class="flex items-center">
+                <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"></path>
+                </svg>
+                <span class="text-gray-500">Nos Partenaires</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <h1 class="text-4xl font-display font-bold mb-6">Nos Partenaires</h1>
+        <p class="text-lg text-gray-600 max-w-3xl mb-12">
+          Découvrez nos partenaires de confiance et leurs réalisations avec DYNASPORTS. Une collection de collaborations réussies et de projets emblématiques.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {partenaires.map((partenaire) => (
+            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+              <div class="relative aspect-square overflow-hidden">
+                <a href={`/references/${partenaire.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                  <img
+                    src={partenaire.logo}
+                    alt={partenaire.name}
+                    class="w-full h-full object-contain p-8 transform group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </a>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">{partenaire.name}</h3>
+                <a
+                  href={`/references/${partenaire.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  class="inline-flex items-center text-primary font-semibold hover:text-primary/80"
+                >
+                  Voir la galerie
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
