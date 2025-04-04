@@ -48,26 +48,31 @@ export const references = [
 export const partenaires = [
     {
         logo: jaraaf,
+        alt: 'Jaraaf',
         name: "Jaraaf",
         href: "#",
     },
     {
         logo: douanes,
+        alt: 'Douanes',
         name: "Douanes",
         href: "#",
     },
     {
         logo: gf,
+        alt: 'gf',
         name: "Académie Génération Foot",
         href: "#",
     },
   {
       logo: wfc,
+      alt: 'wfc',
       name: "Wallydan FC de Thies ",
       href: "#",
   },
   {
       logo: besport,
+      alt: 'besport',
       name: "Be Sport ",
       href: "http://www.complexebesport.com",
   },

@@ -21,10 +21,10 @@ import path from 'node:path';
 let partnerImages = [];
 try {
   const files = await readdir(path.resolve('./public/images/Dynasport'));
-  // Filtrer pour n'avoir que les images du partenaire
-  const partnerPrefix = partenaire.name.split(' ')[0].toLowerCase();
+  // Filtrer pour n'avoir que les images du partenaire dont le nom d'image inclut 'alt'
+  const partnerIdentifier = partenaire.alt.toLowerCase();
   partnerImages = files
-    .filter(file => file.toLowerCase().startsWith(partnerPrefix))
+    .filter(file => file.toLowerCase().includes(partnerIdentifier))
     .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
     .map(file => `/images/Dynasport/${file}`);
 } catch (error) {
