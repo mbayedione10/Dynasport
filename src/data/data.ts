@@ -3,7 +3,7 @@ const jaraaf = "/images/partenaires/jaraaf.webp";
 const douanes = "/images/partenaires/douanes.webp";
 const gf = "/images/partenaires/gf.webp";
 const wfc = "/images/partenaires/wfc.webp";
-const besport = "/images/partenaires/besport.svg";
+const besport = "/images/partenaires/besport.webp";
 
 // Références statiques
 export const references = [
