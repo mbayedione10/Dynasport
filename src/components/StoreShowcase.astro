@@ -1,21 +1,22 @@
 ---
-import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-// Récupération des images du showroom
-const { data: showcaseImages, error } = await supabase
-  .from('showcase_images')
-  .select('*')
-  .eq('active', true)
-  .order('order', { ascending: true });
-
-if (error) {
-  console.error('Erreur lors de la récupération des images du showroom:', error);
-}
+const showcaseImages = [
+  {
+    image_url: '/images/Dynasport/jaraaf20.webp',
+    title: 'Équipe Jaraaf',
+    description: 'Équipements professionnels pour le club Jaraaf'
+  },
+  {
+    image_url: '/images/Dynasport/douanes1.jpeg',
+    title: 'Équipe Douanes',
+    description: 'Partenariat avec l\'équipe des Douanes'
+  },
+  {
+    image_url: '/images/Dynasport/gf7.webp',
+    title: 'Génération Foot',
+    description: 'Collaboration avec l\'Académie Génération Foot'
+  }
+];
 
 const features = [
   {

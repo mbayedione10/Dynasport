@@ -2,28 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Footer from "../../components/Footer.astro";
-import { createClient } from "@supabase/supabase-js";
+import { categoriesData, categoryProducts } from "../../data/data";
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-export async function getStaticPaths() {
-  const supabase = createClient(
-    import.meta.env.PUBLIC_SUPABASE_URL,
-    import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-  );
-  const { data: categories, error } = await supabase
-    .from("categories")
-    .select("id, name");
-
-  if (error) {
-    console.error("Erreur lors de la récupération des catégories:", error);
-    return [];
-  }
-
-  return categories.map((category) => ({
+export function getStaticPaths() {
+  return categoriesData.map((category) => ({
     params: { category: category.id },
     props: { categoryId: category.id, categoryName: category.name },
   }));
@@ -33,42 +15,15 @@ const { category } = Astro.params;
 const { categoryId, categoryName } = Astro.props;
 
 // Récupération des produits de la catégorie
-const { data: products, error: productsError } = await supabase
-  .from("category_products")
-  .select("*")
-  .eq("category_id", categoryId)
-  .eq("active", true);
+const products = categoryProducts.filter(
+  (product) => product.category_id === categoryId && product.active
+);
 
-if (productsError) {
-  console.error("Erreur lors de la récupération des produits:", productsError);
-}
+// Récupération des détails de la catégorie  
+const categoryDetails = categoriesData.find(cat => cat.id === categoryId);
 
-// Récupération des détails de la catégorie
-const { data: categoryDetails, error: categoryError } = await supabase
-  .from("categories")
-  .select("*")
-  .eq("id", categoryId)
-  .single();
-
-if (categoryError) {
-  console.error(
-    "Erreur lors de la récupération des détails de la catégorie:",
-    categoryError
-  );
-}
-
-// Récupération des tags de la catégorie
-const { data: categoryTags, error: tagsError } = await supabase
-  .from("category_tags")
-  .select("name")
-  .eq("category_id", categoryId);
-
-if (tagsError) {
-  console.error(
-    "Erreur lors de la récupération des tags de la catégorie:",
-    tagsError
-  );
-}
+// Tags de la catégorie
+const categoryTags = categoryDetails?.category_tags || [];
 ---
 
 <Layout

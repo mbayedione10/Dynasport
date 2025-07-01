@@ -1,0 +1,74 @@
+[
+  {
+    "id": "handball",
+    "name": "Handball",
+    "description": "Ballons, tenues et protections pour la performance.",
+    "image_url": "https://images.unsplash.com/photo-1513028738826-f000cded30a4?q=80&w=2972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  },
+  {
+    "id": "recompenses",
+    "name": "Récompenses",
+    "description": "Trophées et médailles pour célébrer les victoires.",
+    "image_url": "https://images.unsplash.com/photo-1620764840976-a6752f359c46?q=80&w=1947&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "created_at": "2025-04-04 16:40:56.54988+00",
+    "updated_at": "2025-04-04 16:40:56.54988+00"
+  },
+  {
+    "id": "football",
+    "name": "Football",
+    "description": "Equipements et accessoires pour joueurs et clubs.",
+    "image_url": "https://cvws.icloud-content.com/B/AcRWI7O71sgSoSt4fnE9tESAjAWAAfAE2UJBV265WhzgpwfhcvI7Fuif/foot.jpeg?o=AqZSenCz5b-CwGAo5D7ps8-ETWqVfAMe7STnCRXo006a&v=1&x=3&a=CAog0F6ZAHlsps01WH_zdDNP-XwJirE2W5i95O9ynpEnJOcSbRDYxdX75TIY2KKx_eUyIgEAUgSAjAWAWgQ7FuifaiYXLzZMonyrPSjUY5USkUCFYfGpXnhm0TaVMhFTZvyoDt5SK8dcoHImybrxW5YbRW1YOCkSHwGs5X4hntzNvNbQNRc58aQgXCjuqw7COL0&e=1745361850&fl=&r=c749ee90-defc-4fb9-aaa7-eba843d7e4b4-1&k=XagSIeHyuT2wipqS5ojPjA&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=157&s=nQtc8tk1QHzlgjmz3uEhZjPqj0E&cd=i",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  },
+  {
+    "id": "running",
+    "name": "Running",
+    "description": "Chaussures et accessoires pour toutes distances.",
+    "image_url": "https://cvws.icloud-content.com/B/AXmfbwlHiQpmQbaJrxqvEpFtAk5vAWavEInG27PwC-wJG-JR38H1iRud/running.jpeg?o=Akpxgyu8hNSWj4RQgKNf12V7q3mPbOl79iGNawR2c3Uf&v=1&x=3&a=CAoglBP_RsayegvtbJhyHD8gXAs1lzh8RR23U9C4YBNx4g4SbRCw0dX75TIYsK6x_eUyIgEAUgRtAk5vWgT1iRudaiY_yfverRjUZpfsB5DRr1ZtBt7L31bSXcs45Flp0iQNDDfjLTbZ-nImkPdSVedCbeZCm8bGMcbfR8t0r-_-BXo-KKBQvkzSe0SJUKe0730&e=1745361852&fl=&r=10e087c5-6e8f-43d4-bbde-57c86afc96a8-1&k=SVjFY60FFVOw44eEo0EI4g&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=157&s=sc8UcSFpOc4zmTnWcmtIaAN650g&cd=i",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  },
+  {
+    "id": "padel",
+    "name": "Padel",
+    "description": "Raquettes, balles et equipements adaptes.",
+    "image_url": "https://images.unsplash.com/flagged/photo-1576972405668-2d020a01cbfa?q=80&w=2974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  },
+  {
+    "id": "rugby",
+    "name": "Rugby",
+    "description": "Accessoires et equipements pour jeu intensif.",
+    "image_url": "https://images.unsplash.com/flagged/photo-1552803516-2c5e71dad4d3?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  },
+  {
+    "id": "tennis",
+    "name": "Tennis",
+    "description": "Materiel de competition et d'entrainement",
+    "image_url": "https://images.unsplash.com/photo-1545809074-59472b3f5ecc?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  },
+  {
+    "id": "fitness",
+    "name": "Fitness",
+    "description": "Accessoires et vétements pour entrainement optimal.",
+    "image_url": "https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  },
+  {
+    "id": "basketball",
+    "name": "Basketball",
+    "description": "Materiel de jeu et tenues pour toutes surfaces.",
+    "image_url": "https://images.unsplash.com/photo-1580692475446-c2fabbbbf835?q=80&w=2062&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "created_at": "2025-03-03 14:36:01.234322+00",
+    "updated_at": "2025-03-03 14:36:01.234322+00"
+  }
+]

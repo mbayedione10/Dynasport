@@ -1,0 +1,242 @@
+[
+  {
+    "id": "d9f163a9-9374-40eb-8f59-6bbcffe024c0",
+    "category_id": "football",
+    "name": "Chaussures de football",
+    "image_url": "https://images.unsplash.com/photo-1596404473981-12caf8859a26",
+    "description": "Chaussures légères et adhérentes pour une meilleure performance",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "e38905b9-6477-4387-99fa-ad1db1ab0261",
+    "category_id": "football",
+    "name": "Ballon de football",
+    "image_url": "https://images.unsplash.com/photo-1518091043644-c1d4457512c6",
+    "description": "Ballon de qualité professionnelle pour entraînement et match",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "d0ac9f87-cdff-4504-a27d-103969470213",
+    "category_id": "football",
+    "name": "Maillot de football",
+    "image_url": "https://images.unsplash.com/photo-1521412644187-c49fa049e84d",
+    "description": "Maillot respirant pour confort et style sur le terrain",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "31509a03-fadf-4a5d-8ac8-9679a336f55c",
+    "category_id": "basketball",
+    "name": "Ballon de basketball",
+    "image_url": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    "description": "Ballon en cuir synthétique pour une meilleure adhérence",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "bb71b2c5-55b4-4614-ae4b-00263f5e4315",
+    "category_id": "basketball",
+    "name": "Chaussures de basketball",
+    "image_url": "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+    "description": "Chaussures amortissantes pour sauts et accélérations",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "4500a5d9-e263-4a1b-8da5-3e082ce81bcc",
+    "category_id": "basketball",
+    "name": "Panier de basketball",
+    "image_url": "https://images.unsplash.com/photo-1518308378350-5e5e1b9e548c",
+    "description": "Panier ajustable pour entraînement et jeu en extérieur",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "5e50bd35-8c51-48b1-ba47-d044547202dc",
+    "category_id": "handball",
+    "name": "Ballon de handball",
+    "image_url": "https://images.unsplash.com/photo-1600047509966-3ec9974f9c53",
+    "description": "Ballon avec grip amélioré pour un meilleur contrôle",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "3bb60355-88fb-454a-a28a-17b183e3301d",
+    "category_id": "handball",
+    "name": "Tenue de handball",
+    "image_url": "https://images.unsplash.com/photo-1580130037291-6faf7d0c1d48",
+    "description": "Tenue respirante pour une liberté de mouvement optimale",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "79556253-e829-46aa-adda-130919eaaed1",
+    "category_id": "handball",
+    "name": "Protège-poignets",
+    "image_url": "https://images.unsplash.com/photo-1596464716121-31c8d7f3f7c0",
+    "description": "Accessoire indispensable pour éviter les blessures",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "e7539938-7528-4a82-aed7-c2e8a7772902",
+    "category_id": "rugby",
+    "name": "Ballon de rugby",
+    "image_url": "https://images.unsplash.com/photo-1575473168123-adea6c0f5a29",
+    "description": "Ballon résistant pour entraînements et matchs intenses",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "8913cef8-a29e-4c75-9655-3ce0673cda97",
+    "category_id": "rugby",
+    "name": "Maillot de rugby",
+    "image_url": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7",
+    "description": "Maillot renforcé pour les contacts physiques",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "546af3ab-d77c-45e3-b764-40b21987e6eb",
+    "category_id": "rugby",
+    "name": "Protège-dents rugby",
+    "image_url": "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7",
+    "description": "Protection essentielle pour éviter les blessures",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "662e3f11-69a3-4184-96da-adb6d51dc3c7",
+    "category_id": "running",
+    "name": "Chaussures de running",
+    "image_url": "https://images.unsplash.com/photo-1526401485004-2c2f26e7232c",
+    "description": "Chaussures légères pour courir sur toutes les surfaces",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "ec31cf5e-538d-4e1e-b72a-ba90b1383821",
+    "category_id": "running",
+    "name": "Montre de running",
+    "image_url": "https://images.unsplash.com/photo-1517411032315-53bd0c35e1a9",
+    "description": "Montre GPS pour suivre les performances",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "e5664bd2-587b-420e-bbdf-b1743f3444bd",
+    "category_id": "running",
+    "name": "T-shirt de running",
+    "image_url": "https://images.unsplash.com/photo-1570610155223-3a9d7d1e7b53",
+    "description": "T-shirt respirant pour un confort maximal",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "d7e43351-f50b-498c-b414-82163922d542",
+    "category_id": "padel",
+    "name": "Raquette de padel",
+    "image_url": "https://images.unsplash.com/photo-1596461404969-9ec8c8f8d1d1",
+    "description": "Raquette légère pour un meilleur contrôle",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "1d3b5b25-21e3-4b2c-b078-a16d643d785f",
+    "category_id": "padel",
+    "name": "Balles de padel",
+    "image_url": "https://images.unsplash.com/photo-1596461404795-0c7efb1e1f9d",
+    "description": "Balles résistantes adaptées aux entraînements et compétitions",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "a7a845c8-2383-465e-ad00-092339e71edd",
+    "category_id": "padel",
+    "name": "Sac de padel",
+    "image_url": "https://images.unsplash.com/photo-1596461404969-9ec8c8f8d1d1",
+    "description": "Sac pratique pour transporter l'équipement",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "819c75a1-b752-4ba0-9a7f-97ae25a7bf9a",
+    "category_id": "tennis",
+    "name": "Raquette de tennis",
+    "image_url": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    "description": "Raquette ergonomique pour un meilleur coup",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "c3f6e346-3b31-4277-8fc3-4483c92d7232",
+    "category_id": "tennis",
+    "name": "Balles de tennis",
+    "image_url": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    "description": "Balles homologuées pour une longue durée de jeu",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "ddc356f2-5d5c-4157-9cde-d37919112430",
+    "category_id": "tennis",
+    "name": "Sac de tennis",
+    "image_url": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    "description": "Sac de transport pratique pour raquettes et accessoires",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "51a6e227-0415-4238-bf20-a622f5e09c27",
+    "category_id": "fitness",
+    "name": "Haltères",
+    "image_url": "https://images.unsplash.com/photo-1579758629930-dabe0e7f0e2e",
+    "description": "Haltères ajustables pour musculation et endurance",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "9cc8bde0-4f7e-4771-a790-7bf35a8313c0",
+    "category_id": "fitness",
+    "name": "Tapis de yoga",
+    "image_url": "https://images.unsplash.com/photo-1599058917213-0c7efb1e1f9d",
+    "description": "Tapis antidérapant pour exercices et yoga",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  },
+  {
+    "id": "004bb851-4e01-44c7-8dc8-bd104a7fc1ab",
+    "category_id": "fitness",
+    "name": "T-shirt de sport",
+    "image_url": "https://images.unsplash.com/photo-1570610155223-3a9d7d1e7b53",
+    "description": "T-shirt léger et respirant pour un entraînement efficace",
+    "active": true,
+    "created_at": "2025-03-04 10:07:39.397656+00",
+    "updated_at": "2025-03-04 10:07:39.397656+00"
+  }
+]
