@@ -366,8 +366,7 @@ export const categoryProducts = [
     id: "ddc356f2-5d5c-4157-9cde-d37919112430",
     category_id: "tennis",
     name: "Sac de tennis",
-    image_url:
-      "/images/tennis-bag.webp",
+    image_url: "/images/tennis-bag.webp",
     description: "Sac de transport pratique pour raquettes et accessoires",
     active: true,
   },
@@ -377,7 +376,7 @@ export const categoryProducts = [
     category_id: "fitness",
     name: "Haltères",
     image_url:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Haltères ajustables pour musculation et endurance",
     active: true,
   },
@@ -386,7 +385,7 @@ export const categoryProducts = [
     category_id: "fitness",
     name: "Tapis de yoga",
     image_url:
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Tapis antidérapant pour exercices et yoga",
     active: true,
   },
@@ -395,7 +394,7 @@ export const categoryProducts = [
     category_id: "fitness",
     name: "T-shirt de sport",
     image_url:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1666358085449-a10a39f33942?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "T-shirt léger et respirant pour un entraînement efficace",
     active: true,
   },
@@ -405,7 +404,7 @@ export const categoryProducts = [
     category_id: "recompenses",
     name: "Trophée Champion",
     image_url:
-      "https://images.unsplash.com/photo-1620764840976-a6752f359c46?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1514820720301-4c4790309f46?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Trophée doré pour célébrer les victoires exceptionnelles",
     active: true,
   },
@@ -414,7 +413,7 @@ export const categoryProducts = [
     category_id: "recompenses",
     name: "Médaille d'Or",
     image_url:
-      "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&auto=format&fit=crop",
+      "https://plus.unsplash.com/premium_photo-1713443924308-dc17828a9932?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Médaille en or pour récompenser l'excellence sportive",
     active: true,
   },
@@ -423,7 +422,7 @@ export const categoryProducts = [
     category_id: "recompenses",
     name: "Coupe de la Victoire",
     image_url:
-      "https://images.unsplash.com/photo-1599582909646-9dd05c7b9c96?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1578269174936-2709b6aeb913?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Coupe prestigieuse pour les tournois et compétitions",
     active: true,
   },
@@ -432,7 +431,7 @@ export const categoryProducts = [
     category_id: "recompenses",
     name: "Médaille d'Argent",
     image_url:
-      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&auto=format&fit=crop",
+      "https://plus.unsplash.com/premium_photo-1713443924308-dc17828a9932?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Médaille en argent pour honorer les performances remarquables",
     active: true,
@@ -442,7 +441,7 @@ export const categoryProducts = [
     category_id: "recompenses",
     name: "Plaque Commémorative",
     image_url:
-      "https://images.unsplash.com/photo-1580913428735-bd3c269d6a82?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1716594568176-bed65e6dcb99?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Plaque personnalisable pour événements spéciaux",
     active: true,
   },
@@ -451,7 +450,7 @@ export const categoryProducts = [
     category_id: "recompenses",
     name: "Médaille de Bronze",
     image_url:
-      "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&auto=format&fit=crop",
+      "https://plus.unsplash.com/premium_photo-1713443924308-dc17828a9932?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Médaille en bronze pour encourager les efforts",
     active: true,
   },
