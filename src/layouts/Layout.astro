@@ -19,6 +19,67 @@ const { title, description } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title} | DYNASPORTS</title>
     <meta name="description" content={description} />
+    
+    <!-- Meta tags spécifiques au sport sénégalais -->
+    <meta name="keywords" content="sport sénégal, équipement sportif dakar, ligue professionnelle sénégal, football sénégal, basketball sénégal, dynasports, matériel sportif professionnel" />
+    <meta name="author" content="Mbaye Dione - NioulBoy" />
+    <meta name="developer" content="Développé par Mbaye Dione (NioulBoy) - Spécialiste du sport local sénégalais" />
+    <meta name="geo.region" content="SN-DK" />
+    <meta name="geo.placename" content="Dakar, Sénégal" />
+    <meta name="geo.position" content="14.7167;-17.4677" />
+    <meta name="ICBM" content="14.7167, -17.4677" />
+    
+    <!-- Open Graph pour les réseaux sociaux -->
+    <meta property="og:title" content={`${title} | DYNASPORTS - Sport Professionnel Sénégal`} />
+    <meta property="og:description" content={`${description} - Équipement sportif professionnel pour les ligues sénégalaises`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_SN" />
+    <meta property="og:site_name" content="DYNASPORTS - Sport Professionnel Sénégal" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | DYNASPORTS`} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- Données structurées pour le sport local -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportingGoodsStore",
+      "name": "DYNASPORTS",
+      "description": "Équipement sportif professionnel pour les ligues et clubs sénégalais",
+      "url": "https://dynasports.com",
+      "logo": "https://dynasports.com/images/dynasports.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Point E Rue 1, Face Piscine Olympique",
+        "addressLocality": "Dakar",
+        "addressCountry": "SN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 14.7167,
+        "longitude": -17.4677
+      },
+      "telephone": "+221776319104",
+      "email": "contact@dynasports.sn",
+      "sameAs": [
+        "https://www.instagram.com/dynasports_sn",
+        "https://www.tiktok.com/@dyna.sports"
+      ],
+      "areaServed": {
+        "@type": "Country",
+        "name": "Sénégal"
+      },
+      "specialty": [
+        "Équipement Football Professionnel",
+        "Matériel Basketball Sénégal", 
+        "Tenues Ligues Professionnelles",
+        "Récompenses Sportives"
+      ]
+    }
+    </script>
+    
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet" />
     
