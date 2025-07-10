@@ -21,6 +21,17 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCK0X5HT2L"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YCK0X5HT2L');
+    </script>
+    
     <ViewTransitions />
   </head>
   <body class="min-h-screen bg-white">
