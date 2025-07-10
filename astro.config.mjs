@@ -4,7 +4,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://dynasports.com',
+  site: 'https://dynasports.sn',
   integrations: [
     tailwind(),
     react(),

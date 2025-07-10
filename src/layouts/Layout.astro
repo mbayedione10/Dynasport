@@ -19,7 +19,7 @@ const { title, description } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title} | DYNASPORTS</title>
     <meta name="description" content={description} />
-    
+
     <!-- Meta tags spécifiques au sport sénégalais -->
     <meta name="keywords" content="sport sénégal, équipement sportif dakar, ligue professionnelle sénégal, football sénégal, basketball sénégal, dynasports, matériel sportif professionnel" />
     <meta name="author" content="Mbaye Dione - NioulBoy" />
@@ -28,19 +28,19 @@ const { title, description } = Astro.props;
     <meta name="geo.placename" content="Dakar, Sénégal" />
     <meta name="geo.position" content="14.7167;-17.4677" />
     <meta name="ICBM" content="14.7167, -17.4677" />
-    
+
     <!-- Open Graph pour les réseaux sociaux -->
     <meta property="og:title" content={`${title} | DYNASPORTS - Sport Professionnel Sénégal`} />
     <meta property="og:description" content={`${description} - Équipement sportif professionnel pour les ligues sénégalaises`} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_SN" />
     <meta property="og:site_name" content="DYNASPORTS - Sport Professionnel Sénégal" />
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | DYNASPORTS`} />
     <meta name="twitter:description" content={description} />
-    
+
     <!-- Données structurées pour le sport local -->
     <script type="application/ld+json">
     {
@@ -79,10 +79,10 @@ const { title, description } = Astro.props;
       ]
     }
     </script>
-    
+
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet" />
-    
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCK0X5HT2L"></script>
     <script>
@@ -92,7 +92,7 @@ const { title, description } = Astro.props;
 
       gtag('config', 'G-YCK0X5HT2L');
     </script>
-    
+
     <ViewTransitions />
   </head>
   <body class="min-h-screen bg-white">
@@ -107,12 +107,12 @@ const { title, description } = Astro.props;
     if (typeof window.initializeCarousels === 'function') {
       window.initializeCarousels();
     }
-    
+
     // Réinitialiser les cartes si le script maplibre existe
     if (typeof window.initializeMap === 'function') {
       window.initializeMap();
     }
-    
+
     // Réinitialiser les animations de témoignages
     if (typeof window.initializeTestimonials === 'function') {
       window.initializeTestimonials();
