@@ -1,0 +1,8 @@
+
+{
+  "name": "Médaille de Bronze",
+  "category_id": "recompenses",
+  "description": "Médaille en bronze pour encourager les efforts",
+  "image_url": "https://plus.unsplash.com/premium_photo-1713443924308-dc17828a9932?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "active": true
+}

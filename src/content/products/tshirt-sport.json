@@ -1,0 +1,8 @@
+
+{
+  "name": "T-shirt de sport",
+  "category_id": "fitness",
+  "description": "T-shirt léger et respirant pour un entraînement efficace",
+  "image_url": "https://images.unsplash.com/photo-1666358085449-a10a39f33942?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "active": true
+}

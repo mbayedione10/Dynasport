@@ -1,0 +1,8 @@
+
+{
+  "name": "Raquette de padel",
+  "category_id": "padel",
+  "description": "Raquette légère pour un meilleur contrôle",
+  "image_url": "/images/padel.webp",
+  "active": true
+}

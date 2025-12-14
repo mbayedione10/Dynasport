@@ -1,0 +1,13 @@
+
+{
+  "id": "fitness",
+  "name": "Fitness",
+  "description": "Accessoires et vétements pour entrainement optimal.",
+  "image_url": "https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "active": true,
+  "category_tags": [
+    { "name": "Haltères" },
+    { "name": "Vêtements" },
+    { "name": "Accessoires" }
+  ]
+}

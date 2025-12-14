@@ -1,0 +1,8 @@
+
+{
+  "name": "Ballon de handball",
+  "category_id": "handball",
+  "description": "Ballon avec grip amélioré pour un meilleur contrôle",
+  "image_url": "https://images.unsplash.com/photo-1664524857259-8ec0123baaf9?q=80&w=2066&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "active": true
+}

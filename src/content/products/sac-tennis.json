@@ -1,0 +1,8 @@
+
+{
+  "name": "Sac de tennis",
+  "category_id": "tennis",
+  "description": "Sac de transport pratique pour raquettes et accessoires",
+  "image_url": "/images/tennis-bag.webp",
+  "active": true
+}
