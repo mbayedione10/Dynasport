@@ -23,7 +23,7 @@ const supabase = createClient(
 const { data: teamReferences, error: teamError } = await supabase
   .from('team_references')
   .select('*')
-  .limit(6)
+  .eq('active', true)
   .order('created_at', { ascending: false });
 
 if (teamError) {
@@ -135,7 +135,7 @@ const services = {
       </div>
     </section> 
     <AboutSection />
-    <SimpleBrandsCarousel />
+    <SimpleBrandsCarousel references={teamReferences || []} />
     <!--Testimonials /-->
 
     <!-- Prêt à passer à l'action -->

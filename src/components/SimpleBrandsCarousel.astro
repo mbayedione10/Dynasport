@@ -1,43 +1,58 @@
+
 ---
-import { partenaires } from '../data/data';
+interface Props {
+  references?: Array<{
+    id: string;
+    team_name: string;
+    image_url: string;
+    description: string;
+    active: boolean;
+  }>;
+}
+
+const { references = [] } = Astro.props;
 ---
 
 <section class="py-20 bg-gray-50">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-display font-bold text-center mb-12">
-      Nos partenaires
+      Nos références
     </h2>
 
-    <div class="relative max-w-6xl mx-auto">
-      <div class="overflow-hidden">
-        <div
-          id="carousel-track"
-          class="flex gap-6 transition-transform ease-in-out"
-        >
-          {
-            [...partenaires, ...partenaires].map((brand, index) => (
-              <div
-                class="flex-shrink-0 w-64 px-4"
-                key={index}
-              >
-                <div class="rounded-lg h-40 flex items-center justify-center p-6 hover:shadow-sm transition-shadow bg-white">
-                  <img
-                    src={brand.logo}
-                    alt={`Logo ${brand.name}`}
-                    class="w-full h-24 object-contain"
-                    loading="lazy"
-                    decoding="async"
-                    fetchpriority="low"
-                    width="180"
-                    height="96"
-                  />
+    {references.length > 0 ? (
+      <div class="relative max-w-6xl mx-auto">
+        <div class="overflow-hidden">
+          <div
+            id="carousel-track"
+            class="flex gap-6 transition-transform ease-in-out"
+          >
+            {
+              [...references, ...references].map((reference, index) => (
+                <div
+                  class="flex-shrink-0 w-64 px-4"
+                  key={index}
+                >
+                  <div class="rounded-lg h-40 flex items-center justify-center p-6 hover:shadow-sm transition-shadow bg-white">
+                    <img
+                      src={reference.image_url}
+                      alt={`Logo ${reference.team_name}`}
+                      class="w-full h-24 object-contain"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="low"
+                      width="180"
+                      height="96"
+                    />
+                  </div>
                 </div>
-              </div>
-            ))
-          }
+              ))
+            }
+          </div>
         </div>
       </div>
-    </div>
+    ) : (
+      <p class="text-center text-gray-500">Aucune référence disponible pour le moment.</p>
+    )}
   </div>
 </section>
 
@@ -54,24 +69,26 @@ import { partenaires } from '../data/data';
   }
 </style>
 
-<script is:client="load">
+<script>
   const track = document.getElementById('carousel-track');
-  let scrollAmount = 0;
+  if (track) {
+    let scrollAmount = 0;
 
-  function autoScroll() {
-    if (!track) return;
+    function autoScroll() {
+      if (!track) return;
 
-    scrollAmount += 1;
-    track.scrollTo({
-      left: scrollAmount,
-      behavior: 'smooth'
-    });
+      scrollAmount += 1;
+      track.scrollTo({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
 
-    // Revenir au début quand la fin est atteinte
-    if (scrollAmount >= track.scrollWidth - track.clientWidth) {
-      scrollAmount = 0;
+      // Revenir au début quand la fin est atteinte
+      if (scrollAmount >= track.scrollWidth - track.clientWidth) {
+        scrollAmount = 0;
+      }
     }
-  }
 
-  const interval = setInterval(autoScroll, 30);
+    const interval = setInterval(autoScroll, 30);
+  }
 </script>
