@@ -1,0 +1,8 @@
+
+{
+  "name": "Ballon de basketball",
+  "category_id": "basketball",
+  "description": "Ballon en cuir synthétique pour une meilleure adhérence",
+  "image_url": "https://images.unsplash.com/photo-1650566924908-db62de4863af?q=80&w=1542&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "active": true
+}

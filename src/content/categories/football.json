@@ -2,12 +2,12 @@
 {
   "id": "football",
   "name": "Football",
-  "description": "Équipements complets pour le football professionnel et amateur",
-  "image_url": "/images/Dynasport/jaraaf1.webp",
+  "description": "Equipements et accessoires pour joueurs et clubs.",
+  "image_url": "/images/Dynasport/wfc-jaraaf2.webp",
   "active": true,
   "category_tags": [
-    { "name": "Ballons" },
-    { "name": "Tenues" },
-    { "name": "Chaussures" }
+    { "name": "Maillots" },
+    { "name": "Chaussures" },
+    { "name": "Ballons" }
   ]
 }

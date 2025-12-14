@@ -1,0 +1,13 @@
+
+{
+  "id": "recompenses",
+  "name": "Récompenses",
+  "description": "Trophées et médailles pour célébrer les victoires.",
+  "image_url": "https://images.unsplash.com/photo-1620764840976-a6752f359c46?q=80&w=1947&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "active": true,
+  "category_tags": [
+    { "name": "Trophées" },
+    { "name": "Médailles" },
+    { "name": "Récompenses" }
+  ]
+}

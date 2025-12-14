@@ -18,6 +18,12 @@ collections:
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Image", name: "image_url", widget: "image"}
       - {label: "Actif", name: "active", widget: "boolean", default: true}
+      - label: "Tags"
+        name: "category_tags"
+        widget: "list"
+        required: false
+        fields:
+          - {label: "Nom du tag", name: "name", widget: "string"}
 
   - name: "products"
     label: "Produits"
