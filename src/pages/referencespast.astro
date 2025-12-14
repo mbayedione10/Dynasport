@@ -11,14 +11,15 @@ import path from 'node:path';
 
 let dynasportImages = [];
 try {
-  const files = await readdir(path.resolve('./public/images/Dynasport'));
-  // Filtrer pour n'avoir que les images (jpg, jpeg, png, gif, webp)
+  const files = await readdir(path.resolve('./public/images/uploads'));
+  // Filtrer pour n'avoir que les images de galerie (pattern: ref-*.ext)
   dynasportImages = files
     .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
-    .filter(file => file !== 'image_placeholder.jpg') // Exclure l'image placeholder
-    .map(file => `/images/Dynasport/${file}`);
+    .filter(file => file.toLowerCase().startsWith('ref-'))
+    .sort()
+    .map(file => `/images/uploads/${file}`);
 } catch (error) {
-  console.error('Erreur lors de la lecture du dossier Dynasport:', error);
+  console.error('Erreur lors de la lecture du dossier uploads:', error);
 }
 
 ---
@@ -67,7 +68,7 @@ Découvrez notre gamme d’équipements sportifs à travers une sélection de no
                     alt={`Image Dynasport ${index + 1}`}
                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
-                    onerror="this.onerror=null; this.src='/images/Dynasport/image_placeholder.jpg';"
+                    onerror="this.onerror=null; this.src='/images/uploads/placeholder.jpg';"
                   />
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform">

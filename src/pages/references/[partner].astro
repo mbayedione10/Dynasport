@@ -30,13 +30,14 @@ import path from 'node:path';
 
 let partnerImages = [];
 try {
-  const files = await readdir(path.resolve('./public/images/Dynasport'));
-  // Filtrer pour n'avoir que les images du partenaire dont le nom d'image inclut 'alt'
+  const files = await readdir(path.resolve('./public/images/uploads'));
+  // Filtrer pour n'avoir que les images de galerie du partenaire (pattern: ref-{identifier}-N.ext)
   const partnerIdentifier = partenaire.alt.toLowerCase();
   partnerImages = files
-    .filter(file => file.toLowerCase().includes(partnerIdentifier))
+    .filter(file => file.toLowerCase().startsWith(`ref-${partnerIdentifier}`))
     .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
-    .map(file => `/images/Dynasport/${file}`);
+    .sort() // Trier pour avoir ref-nom-1, ref-nom-2, etc. dans l'ordre
+    .map(file => `/images/uploads/${file}`);
 } catch (error) {
   console.error('Erreur lors de la lecture du dossier:', error);
 }

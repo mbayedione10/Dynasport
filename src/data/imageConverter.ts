@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
-const imageFolder = './public/images/Dynasport';
+const imageFolder = './public/images/uploads';
 
 async function convertImagesToWebp(folderPath: string) {
     let convertedCount = 0;

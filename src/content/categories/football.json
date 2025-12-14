@@ -3,7 +3,7 @@
   "id": "football",
   "name": "Football",
   "description": "Equipements et accessoires pour joueurs et clubs.",
-  "image_url": "/images/Dynasport/wfc-jaraaf2.webp",
+  "image_url": "/images/uploads/cat-football.webp",
   "active": true,
   "category_tags": [
     { "name": "Maillots" },

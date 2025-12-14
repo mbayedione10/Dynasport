@@ -1,9 +1,9 @@
-// Utilisation des chemins publics pour les images
-const jaraaf = "/images/partenaires/jaraaf.webp";
-const douanes = "/images/partenaires/douanes.webp";
-const gf = "/images/partenaires/gf.webp";
-const wfc = "/images/partenaires/wfc.webp";
-const besport = "/images/partenaires/besport.webp";
+// Utilisation des chemins publics pour les images (dossier uploads unifié)
+const jaraaf = "/images/uploads/logo-jaraaf.webp";
+const douanes = "/images/uploads/logo-douanes.webp";
+const gf = "/images/uploads/logo-gf.webp";
+const wfc = "/images/uploads/logo-wfc.webp";
+const besport = "/images/uploads/logo-besport.webp";
 
 // Références statiques
 export const references = [
@@ -112,7 +112,7 @@ export const categoriesData = [
     id: "football",
     name: "Football",
     description: "Equipements et accessoires pour joueurs et clubs.",
-    image_url: "/images/Dynasport/wfc-jaraaf2.webp",
+    image_url: "/images/uploads/cat-football.webp",
     category_tags: [
       { name: "Maillots" },
       { name: "Chaussures" },
@@ -219,7 +219,7 @@ export const categoryProducts = [
     id: "d0ac9f87-cdff-4504-a27d-103969470213",
     category_id: "football",
     name: "Maillot de football",
-    image_url: "/images/Dynasport/douanes1.jpeg",
+    image_url: "/images/uploads/prod-maillot-football.webp",
     description: "Maillot respirant pour confort et style sur le terrain",
     active: true,
   },
@@ -312,7 +312,7 @@ export const categoryProducts = [
     id: "e5664bd2-587b-420e-bbdf-b1743f3444bd",
     category_id: "running",
     name: "T-shirt de running",
-    image_url: "/images/Dynasport/besport9.webp",
+    image_url: "/images/uploads/prod-tshirt-running.webp",
     description: "T-shirt respirant pour un confort maximal",
     active: true,
   },
