@@ -1,4 +1,3 @@
-
 backend:
   name: git-gateway
   branch: main
@@ -11,6 +10,8 @@ collections:
     label: "Catégories"
     folder: "src/content/categories"
     create: true
+    extension: "json"
+    format: "json"
     slug: "{{id}}"
     fields:
       - {label: "ID (slug)", name: "id", widget: "string"}
@@ -29,6 +30,8 @@ collections:
     label: "Produits"
     folder: "src/content/products"
     create: true
+    extension: "json"
+    format: "json"
     slug: "{{slug}}"
     fields:
       - {label: "Nom", name: "name", widget: "string"}
@@ -41,6 +44,8 @@ collections:
     label: "Références"
     folder: "src/content/references"
     create: true
+    extension: "json"
+    format: "json"
     slug: "{{slug}}"
     fields:
       - {label: "Nom de l'équipe", name: "team_name", widget: "string"}
@@ -52,6 +57,8 @@ collections:
     label: "Produits Vedettes"
     folder: "src/content/featured"
     create: true
+    extension: "json"
+    format: "json"
     slug: "{{slug}}"
     fields:
       - {label: "Nom", name: "name", widget: "string"}
