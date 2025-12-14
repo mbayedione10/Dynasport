@@ -12,23 +12,19 @@ import ContactForm from '../components/ContactForm.astro';
 import MapSection from '../components/MapSection.astro';
 import Footer from '../components/Footer.astro';
 import StoreShowcase from '../components/StoreShowcase.astro';
-import { createClient } from '@supabase/supabase-js';
+import { getCollection } from 'astro:content';
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-// Récupération des références des équipes
-const { data: teamReferences, error: teamError } = await supabase
-  .from('team_references')
-  .select('*')
-  .eq('active', true)
-  .order('created_at', { ascending: false });
-
-if (teamError) {
-  console.error('Erreur lors de la récupération des références d\'équipes:', teamError);
-}
+// Récupération des références depuis les fichiers de contenu
+const allReferences = await getCollection('references');
+const teamReferences = allReferences
+  .filter(ref => ref.data.active)
+  .map(ref => ({
+    id: ref.id,
+    team_name: ref.data.team_name,
+    image_url: ref.data.image_url,
+    description: ref.data.description,
+    active: ref.data.active
+  }));
 
 // Services spécifiques pour les différents profils
 const services = {
