@@ -3,7 +3,17 @@
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
-import { partenaires } from '../../data/data';
+import { getCollection } from 'astro:content';
+
+// Charger les références depuis Netlify CMS
+const referencesEntries = await getCollection('references');
+const partenaires = referencesEntries
+  .filter(entry => entry.data.active)
+  .map(entry => ({
+    name: entry.data.team_name,
+    logo: entry.data.image_url,
+    alt: entry.id
+  }));
 
 ---
 

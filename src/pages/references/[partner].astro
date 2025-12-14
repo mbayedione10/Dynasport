@@ -3,13 +3,23 @@
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
-import { partenaires } from '../../data/data';
+import { getCollection } from 'astro:content';
 
-export function getStaticPaths() {
-  return partenaires.map(partenaire => ({
-    params: { partner: partenaire.name.toLowerCase().replace(/\s+/g, '-') },
-    props: { partenaire },
-  }));
+export async function getStaticPaths() {
+  const referencesEntries = await getCollection('references');
+  
+  return referencesEntries
+    .filter(entry => entry.data.active)
+    .map(entry => ({
+      params: { partner: entry.data.team_name.toLowerCase().replace(/\s+/g, '-') },
+      props: { 
+        partenaire: {
+          name: entry.data.team_name,
+          logo: entry.data.image_url,
+          alt: entry.id
+        }
+      },
+    }));
 }
 
 const { partenaire } = Astro.props;
