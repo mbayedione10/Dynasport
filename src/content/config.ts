@@ -36,21 +36,8 @@ const referencesCollection = defineCollection({
   }),
 });
 
-const featuredCollection = defineCollection({
-  type: 'data',
-  schema: z.object({
-    name: z.string(),
-    image_url: z.string(),
-    price: z.string(),
-    description: z.string(),
-    badge: z.string().optional(),
-    active: z.boolean().default(true),
-  }),
-});
-
 export const collections = {
   'categories': categoriesCollection,
   'products': productsCollection,
   'references': referencesCollection,
-  'featured': featuredCollection,
 };
