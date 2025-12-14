@@ -1,0 +1,13 @@
+
+{
+  "id": "basketball",
+  "name": "Basketball",
+  "description": "Équipements de basketball pour clubs et institutions",
+  "image_url": "/images/Dynasport/besport.webp",
+  "active": true,
+  "category_tags": [
+    { "name": "Ballons" },
+    { "name": "Maillots" },
+    { "name": "Paniers" }
+  ]
+}

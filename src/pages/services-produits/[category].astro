@@ -2,12 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Footer from "../../components/Footer.astro";
-import { categoriesData, categoryProducts } from "../../data/data";
+import { getCollection } from 'astro:content';
 
-export function getStaticPaths() {
-  return categoriesData.map((category) => ({
-    params: { category: category.id },
-    props: { categoryId: category.id, categoryName: category.name },
+export async function getStaticPaths() {
+  const categories = await getCollection('categories');
+  
+  return categories.map((category) => ({
+    params: { category: category.data.id },
+    props: { categoryId: category.data.id, categoryName: category.data.name },
   }));
 }
 
@@ -15,12 +17,14 @@ const { category } = Astro.params;
 const { categoryId, categoryName } = Astro.props;
 
 // Récupération des produits de la catégorie
-const products = categoryProducts.filter(
-  (product) => product.category_id === categoryId && product.active
-);
+const allProducts = await getCollection('products', ({ data }) => data.active !== false);
+const products = allProducts
+  .filter((product) => product.data.category_id === categoryId)
+  .map(p => p.data);
 
 // Récupération des détails de la catégorie  
-const categoryDetails = categoriesData.find(cat => cat.id === categoryId);
+const categoriesEntries = await getCollection('categories');
+const categoryDetails = categoriesEntries.find(cat => cat.data.id === categoryId)?.data;
 
 // Tags de la catégorie
 const categoryTags = categoryDetails?.category_tags || [];

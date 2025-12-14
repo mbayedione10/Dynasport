@@ -9,6 +9,9 @@ const categoriesCollection = defineCollection({
     description: z.string(),
     image_url: z.string(),
     active: z.boolean().default(true),
+    category_tags: z.array(z.object({
+      name: z.string(),
+    })).optional(),
   }),
 });
 

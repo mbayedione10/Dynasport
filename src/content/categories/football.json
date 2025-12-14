@@ -1,0 +1,13 @@
+
+{
+  "id": "football",
+  "name": "Football",
+  "description": "Équipements complets pour le football professionnel et amateur",
+  "image_url": "/images/Dynasport/jaraaf1.webp",
+  "active": true,
+  "category_tags": [
+    { "name": "Ballons" },
+    { "name": "Tenues" },
+    { "name": "Chaussures" }
+  ]
+}

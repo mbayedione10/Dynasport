@@ -3,7 +3,17 @@
 import Layout from "../../layouts/Layout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Footer from "../../components/Footer.astro";
-import { categoriesData } from "../../data/data";
+import { getCollection } from 'astro:content';
+
+// Récupération des catégories depuis les collections
+const categoriesEntries = await getCollection('categories', ({ data }) => data.active !== false);
+const categoriesData = categoriesEntries.map(entry => ({
+  id: entry.data.id,
+  name: entry.data.name,
+  description: entry.data.description,
+  image_url: entry.data.image_url,
+  category_tags: entry.data.category_tags || []
+}));
 ---
 
 <Layout

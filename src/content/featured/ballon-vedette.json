@@ -1,0 +1,9 @@
+
+{
+  "name": "Ballon Premium",
+  "image_url": "/images/ball_paddel.jpg",
+  "price": "25 000 FCFA",
+  "description": "Ballon professionnel haute performance",
+  "badge": "Best-seller",
+  "active": true
+}
