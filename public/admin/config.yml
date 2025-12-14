@@ -1,0 +1,56 @@
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "categories"
+    label: "Catégories"
+    folder: "src/content/categories"
+    create: true
+    slug: "{{id}}"
+    fields:
+      - {label: "ID (slug)", name: "id", widget: "string"}
+      - {label: "Nom", name: "name", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Image", name: "image_url", widget: "image"}
+      - {label: "Actif", name: "active", widget: "boolean", default: true}
+
+  - name: "products"
+    label: "Produits"
+    folder: "src/content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Nom", name: "name", widget: "string"}
+      - {label: "Catégorie", name: "category_id", widget: "relation", collection: "categories", search_fields: ["name"], value_field: "id", display_fields: ["name"]}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Image", name: "image_url", widget: "image"}
+      - {label: "Actif", name: "active", widget: "boolean", default: true}
+
+  - name: "references"
+    label: "Références"
+    folder: "src/content/references"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Nom de l'équipe", name: "team_name", widget: "string"}
+      - {label: "Image", name: "image_url", widget: "image"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Actif", name: "active", widget: "boolean", default: true}
+
+  - name: "featured_products"
+    label: "Produits Vedettes"
+    folder: "src/content/featured"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Nom", name: "name", widget: "string"}
+      - {label: "Image", name: "image_url", widget: "image"}
+      - {label: "Prix", name: "price", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Badge", name: "badge", widget: "string", required: false}
+      - {label: "Actif", name: "active", widget: "boolean", default: true}
