@@ -7,16 +7,16 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const referencesEntries = await getCollection('references');
-  
+
   return referencesEntries
     .filter(entry => entry.data.active)
     .map(entry => ({
-      params: { partner: entry.data.team_name.toLowerCase().replace(/\s+/g, '-') },
-      props: { 
+      params: { partner: entry.id }, // entry.id = nom du fichier (slug auto-généré)
+      props: {
         partenaire: {
           name: entry.data.team_name,
           logo: entry.data.image_url,
-          alt: entry.id
+          slug: entry.id // Utiliser le nom du fichier comme slug
         }
       },
     }));
@@ -31,10 +31,10 @@ import path from 'node:path';
 let partnerImages = [];
 try {
   const files = await readdir(path.resolve('./public/images/uploads'));
-  // Filtrer pour n'avoir que les images de galerie du partenaire (pattern: ref-{identifier}-N.ext)
-  const partnerIdentifier = partenaire.alt.toLowerCase();
+  // Filtrer pour n'avoir que les images de galerie du partenaire (pattern: ref-{slug}-N.ext)
+  const partnerSlug = partenaire.slug;
   partnerImages = files
-    .filter(file => file.toLowerCase().startsWith(`ref-${partnerIdentifier}`))
+    .filter(file => file.toLowerCase().startsWith(`ref-${partnerSlug}`))
     .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
     .sort() // Trier pour avoir ref-nom-1, ref-nom-2, etc. dans l'ordre
     .map(file => `/images/uploads/${file}`);

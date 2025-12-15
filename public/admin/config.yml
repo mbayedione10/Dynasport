@@ -46,7 +46,7 @@ collections:
     create: true
     extension: "json"
     format: "json"
-    slug: "{{slug}}"
+    slug: "{{team_name | slugify}}"
     fields:
       - {label: "Nom de l'équipe", name: "team_name", widget: "string"}
       - {label: "Image", name: "image_url", widget: "image"}
