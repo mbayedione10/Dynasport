@@ -1,21 +1,10 @@
 ---
-import { createClient } from '@supabase/supabase-js';
+import { getCollection } from 'astro:content';
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-// Récupération des produits en vedette
-const { data: featuredProducts, error } = await supabase
-  .from('featured_products')
-  .select('*')
-  .eq('active', true)
-  .order('created_at', { ascending: false });
-
-if (error) {
-  console.error('Erreur lors de la récupération des produits en vedette:', error);
-}
+const featuredEntries = await getCollection('featured');
+const featuredProducts = featuredEntries
+  .filter(entry => entry.data.active)
+  .map(entry => entry.data);
 ---
 
 <section class="py-5 bg-gray-50">

@@ -52,3 +52,33 @@ collections:
       - {label: "Image", name: "image_url", widget: "image"}
       - {label: "Description", name: "description", widget: "text", required: false}
       - {label: "Actif", name: "active", widget: "boolean", default: true}
+
+  - name: "testimonials"
+    label: "Témoignages"
+    folder: "src/content/testimonials"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{name | slugify}}"
+    fields:
+      - {label: "Nom", name: "name", widget: "string"}
+      - {label: "Rôle / Fonction", name: "role", widget: "string"}
+      - {label: "Avatar", name: "avatar_url", widget: "image"}
+      - {label: "Témoignage", name: "content", widget: "text"}
+      - {label: "Ordre", name: "order", widget: "number", default: 1}
+      - {label: "Actif", name: "active", widget: "boolean", default: true}
+
+  - name: "featured"
+    label: "Produits Vedettes"
+    folder: "src/content/featured"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{name | slugify}}"
+    fields:
+      - {label: "Nom", name: "name", widget: "string"}
+      - {label: "Image", name: "image_url", widget: "image"}
+      - {label: "Prix", name: "price", widget: "string", required: false}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Badge", name: "badge", widget: "string", hint: "Ex: Best-seller, Populaire, Nouveau"}
+      - {label: "Actif", name: "active", widget: "boolean", default: true}

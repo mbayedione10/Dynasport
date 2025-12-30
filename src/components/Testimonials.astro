@@ -1,20 +1,11 @@
 ---
-import { createClient } from '@supabase/supabase-js';
+import { getCollection } from 'astro:content';
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-const { data: testimonials, error } = await supabase
-  .from('testimonials')
-  .select('*')
-  .eq('active', true)
-  .order('order', { ascending: true });
-
-if (error) {
-  console.error('Erreur lors de la récupération des témoignages:', error);
-}
+const testimonialsEntries = await getCollection('testimonials');
+const testimonials = testimonialsEntries
+  .filter(entry => entry.data.active)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(entry => entry.data);
 ---
 
 <section class="py-5 bg-gray-50">

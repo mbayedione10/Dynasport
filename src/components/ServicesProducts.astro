@@ -1,25 +1,16 @@
 ---
-import { createClient } from '@supabase/supabase-js';
+import { getCollection } from 'astro:content';
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-// Récupération des catégories et leurs tags
-const { data: categories, error } = await supabase
-  .from('categories')
-  .select(`
-    *,
-    category_tags (
-      name
-    )
-  `)
-  .order('updated_at', { ascending: false });
-
-if (error) {
-  console.error('Erreur lors de la récupération des catégories:', error);
-}
+const categoriesEntries = await getCollection('categories');
+const categories = categoriesEntries
+  .filter(entry => entry.data.active)
+  .map(entry => ({
+    id: entry.data.id,
+    name: entry.data.name,
+    description: entry.data.description,
+    image_url: entry.data.image_url,
+    category_tags: entry.data.category_tags || []
+  }));
 ---
 
 <section class="py-24 bg-gray-50">
